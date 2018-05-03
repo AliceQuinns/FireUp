@@ -215,7 +215,7 @@
     "BlockGroupSize": 1,
     "BlockPoolSize": 20,
     "BlockGroupPoolSize": 5,
-    "BlockCreateSize": 4,
+    "BlockCreateSize": 5,
     "lifeRange": [
       1,
       10

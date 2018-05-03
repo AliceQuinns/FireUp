@@ -2,7 +2,6 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        maxY: -960,//最大移动距离
         Blockchildren: [],//当前方块组下的全部方块
     },
 
@@ -30,10 +29,12 @@ cc.Class({
                 target.parent=self.node;
                 target.setContentSize(self.BlockWidth,100);
                 target.setPosition(cc.v2((self.limitLeft+self.BlockWidth*i),0));
-                //console.log(cc.v2((self.limitLeft+self.BlockWidth*i),0));
-                target.getComponent('Block').init(content,i,this);//初始化方块
-            }else{
-               // console.log('没有方块',self.configure);
+                try{
+                    target.getComponent('Block').init(content,i,this.target);//初始化方块
+                }catch(e){
+                    console.log(target.getComponent('Block'));
+                    console.log('Block对象无法调用init方法');
+                }
             }
         }
     },
@@ -44,7 +45,7 @@ cc.Class({
         if(this.BlockPool.size()>0){
             target = this.BlockPool.get();
         }else{
-            target = cc.instantiate(this.target.Block_Group);
+            target = cc.instantiate(this.target.Block);// new方块对象
         }
         return target;
     },
@@ -55,8 +56,8 @@ cc.Class({
 
     update (dt) {
         if(this.target){
-            if(this.node.y<=this.maxY){
-                this.target.deletePool("BlockPool",this.Blockchildren);//回收方块节点
+            if(this.node.y<=-(this.target.parents/2)){
+                this.target.deletePool("BlockPool",this.node.children);//回收方块节点
                 this.target.deletePool("BlockGroupPool",this.node);//回收方块组节点
             }else{
                 this.node.y-=this.moveSpeen*dt;

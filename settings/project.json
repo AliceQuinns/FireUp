@@ -8,9 +8,9 @@
   },
   "collision-matrix": [
     [
-      true,
       false,
-      true
+      false,
+      false
     ],
     [
       false,
@@ -18,7 +18,14 @@
       true
     ],
     [
+      false,
       true,
+      false,
+      true
+    ],
+    [
+      false,
+      false,
       true,
       false
     ]
@@ -31,7 +38,8 @@
   "group-list": [
     "default",
     "Bullet",
-    "Block"
+    "Block",
+    "Lead"
   ],
   "simulator-orientation": false,
   "simulator-resolution": {

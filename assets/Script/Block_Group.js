@@ -10,7 +10,7 @@ cc.Class({
         BlockGroupSize: {default:1,tooltip:"单次生成方块组数量"},
         BlockPoolSize: {default:20,tooltip:"初始化方块对象池的数量"},
         BlockGroupPoolSize: {default:5,tooltip:"初始化方块组对象池的数量"},
-        BlockCreateSize:{default:4,tooltip:"单个方块组对象的方块数量"},
+        BlockCreateSize:{default:5,tooltip:"单个方块组对象的方块数量"},
         lifeRange: {default:[],type:[cc.Integer],tooltip:"生命值取值范围"},
         BlockGroupHeight:{default: 100,tooltip:"方块组的高度"},
     },
@@ -92,7 +92,6 @@ cc.Class({
             }
             configure.push(target);
         }
-        //console.log(configure);
         return configure;
     },
 
