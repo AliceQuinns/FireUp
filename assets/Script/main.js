@@ -7,12 +7,15 @@ cc.Class({
     properties: {
         Lead: cc.Node,
         Block_Group: cc.Node,
+        Fraction: cc.Node,//分数节点
     },
     onLoad () {
         // 开启碰撞检测系统
         var manager = cc.director.getCollisionManager();
         manager.enabled = true;
         manager.enabledDebugDraw = true;// 开启debug模式
+        manager.enabledDrawBoundingBox=true;
+        this.Fraction.zIndex=99;
     },
 
     start () {

@@ -26,18 +26,21 @@
       },
       {
         "__id__": 7
+      },
+      {
+        "__id__": 8
       }
     ],
     "_prefab": {
-      "__id__": 8
+      "__id__": 9
     },
     "_id": "",
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
+      "r": 0,
       "g": 255,
-      "b": 255,
+      "b": 235,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -65,11 +68,11 @@
     "_localZOrder": 0,
     "_globalZOrder": 0,
     "_opacityModifyRGB": false,
-    "groupIndex": 0
+    "groupIndex": 2
   },
   {
     "__type__": "cc.Node",
-    "_name": "New Label",
+    "_name": "life",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -182,7 +185,7 @@
     "asset": {
       "__uuid__": "182c4ff7-2bf3-4a0d-bd53-5a6418390316"
     },
-    "fileId": "93EqFtdcpNK6xPaewM/ik0",
+    "fileId": "58waRRzStM47qTo3IYHRlu",
     "sync": false
   },
   {
@@ -219,8 +222,67 @@
       "__id__": 1
     },
     "_enabled": true,
-    "Block": null,
-    "Block_Group": null
+    "labelNode": {
+      "__id__": 2
+    },
+    "Blockcolor": [
+      {
+        "__type__": "cc.Color",
+        "r": 255,
+        "g": 0,
+        "b": 0,
+        "a": 255
+      },
+      {
+        "__type__": "cc.Color",
+        "r": 163,
+        "g": 255,
+        "b": 0,
+        "a": 255
+      },
+      {
+        "__type__": "cc.Color",
+        "r": 31,
+        "g": 255,
+        "b": 0,
+        "a": 255
+      },
+      {
+        "__type__": "cc.Color",
+        "r": 255,
+        "g": 255,
+        "b": 255,
+        "a": 255
+      },
+      {
+        "__type__": "cc.Color",
+        "r": 255,
+        "g": 204,
+        "b": 0,
+        "a": 255
+      }
+    ],
+    "life": 0
+  },
+  {
+    "__type__": "cc.BoxCollider",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "tag": 0,
+    "_offset": {
+      "__type__": "cc.Vec2",
+      "x": 50,
+      "y": 50
+    },
+    "_size": {
+      "__type__": "cc.Size",
+      "width": 100,
+      "height": 100
+    }
   },
   {
     "__type__": "cc.PrefabInfo",

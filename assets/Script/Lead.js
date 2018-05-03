@@ -43,6 +43,7 @@ cc.Class({
                 target = cc.instantiate(this.Bullet);
             }
             target.parent = this.parent;
+            target.zIndex=99;
             target.setPosition(cc.v2(this.node.x,this.node.y));
             target.getComponent('Bullet').init(this.BullerCreateSpeed,this.BullerMoveSpeed,this.BullerConcurrency,this);
         }
@@ -63,6 +64,11 @@ cc.Class({
     },
 
     onLoad () {
+        this.node.zIndex=100;
+        // 修改包围盒
+        let Box_collider = this.node.getComponent(cc.BoxCollider);
+        Box_collider.size=cc.v2(this.node.width,this.node.height);
+        Box_collider.offset=cc.v2(0,this.node.height>>1);
     },
 
     start () {
@@ -71,7 +77,7 @@ cc.Class({
 
     update (dt) {
         if(this.ObjPool.size()>=20){
-            console.log('当前节点池数量',this.ObjPool.size());
+            console.log('当前最大节点池数量',this.ObjPool);
         }
         if(this.BulletTime>=this.BullerCreateSpeed){
             this.BulletTime = 0;

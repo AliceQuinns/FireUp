@@ -31,7 +31,7 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
+      "r": 0,
       "g": 0,
       "b": 0,
       "a": 255
@@ -71,9 +71,7 @@
       "__id__": 1
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "aa7f0547-2f60-45f1-be14-ed7d2ad866d4"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 0,
     "_fillType": 0,
@@ -97,7 +95,8 @@
       "__id__": 1
     },
     "_enabled": true,
-    "maxY": -960
+    "maxY": -960,
+    "Blockchildren": []
   },
   {
     "__type__": "cc.PrefabInfo",

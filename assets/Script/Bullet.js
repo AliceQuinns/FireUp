@@ -12,10 +12,15 @@ cc.Class({
         this.BullerMoveSpeed = BullerMoveSpeed;//子弹移动速度
         this.BullerConcurrency = BullerConcurrency;//子弹连发数
         this.Lead = Lead;//Lead节点
-        console.log(BullerCreateSpeed,BullerMoveSpeed,BullerConcurrency);
+        //console.log(BullerCreateSpeed,BullerMoveSpeed,BullerConcurrency);
     },
 
-    onLoad () {},
+    onLoad () {
+        // 修改包围盒
+        let Box_collider = this.node.getComponent(cc.BoxCollider);
+        Box_collider.size=cc.v2(this.node.width,this.node.height);
+        Box_collider.offset=cc.v2(0,this.node.height>>1);
+    },
 
     start () {
 
