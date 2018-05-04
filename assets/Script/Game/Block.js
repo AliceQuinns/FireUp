@@ -55,6 +55,7 @@ cc.Class({
         if( other.tag === 2 ){
             this.life -= 1;
             this.setLife(self.node);//设置生命值
+            this.setColoe();//修改颜色
         }
     },
 

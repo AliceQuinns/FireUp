@@ -213,10 +213,10 @@
     },
     "BlockGroupCreate": 240,
     "BlockGroupMoveSpeen": 100,
-    "BlockGroupSize": 1,
+    "BlockGroupSize": 2,
     "BlockPoolSize": 20,
     "BlockGroupPoolSize": 5,
-    "BlockCreateSize": 5,
+    "BlockCreateSize": 4,
     "lifeRange": [
       1,
       10

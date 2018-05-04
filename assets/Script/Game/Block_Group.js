@@ -5,14 +5,14 @@ cc.Class({
         parents: cc.Node,//canvas节点
         Block: cc.Prefab,//单个方块
         Block_Group: cc.Prefab,//方块容器
-        BlockGroupCreate: {default:30,tooltip:"方块组生成速度 帧数"},
-        BlockGroupMoveSpeen: {default:30,tooltip:"方块组移动速度 帧数"},
+        BlockGroupCreate: {default:240,tooltip:"方块组生成速度 帧数 数值越大生成速度越慢"},
+        BlockGroupMoveSpeen: {default:100,tooltip:"方块组移动速度 帧数 "},
         BlockGroupSize: {default:1,tooltip:"单次生成方块组数量"},
         BlockPoolSize: {default:20,tooltip:"初始化方块对象池的数量"},
         BlockGroupPoolSize: {default:5,tooltip:"初始化方块组对象池的数量"},
         BlockCreateSize:{default:5,tooltip:"单个方块组对象的方块数量"},
         lifeRange: {default:[],type:[cc.Integer],tooltip:"生命值取值范围"},
-        BlockGroupHeight:{default: 100,tooltip:"方块组的高度"},
+        BlockGroupHeight:{default: 100,visible:false},//方块组高度
     },
     BlockGroupPool: null,//方块组对象池
     BlockPool:null,//方块对象池
@@ -35,8 +35,10 @@ cc.Class({
 
     // 方块组生成
     createBlockGroupObj: function(BlockGroupSize){
-        for(let i=BlockGroupSize;i--;){
+        this.BlockGroupHeight = this.parents.width/this.BlockCreateSize;//方块组高度和方块高度
+        for(let i = 0;i<BlockGroupSize;i++){
             let target = null;
+            //请求对象池
             if(this.BlockGroupPool.size()>0){
                 target = this.BlockGroupPool.get();
             }else{
@@ -45,8 +47,14 @@ cc.Class({
             target.parent = this.parents;
             target.zIndex=98;
             target.setContentSize(this.parents.width,this.BlockGroupHeight);
-            target.setPosition(cc.v2(this.node.x,(this.node.y+i*target.height)));
-            target.getComponent('Block_Group_Obj').init(this.BlockGroupMoveSpeen,this,this.BlockPool,this.addBlockMethod());//初始化方块组
+            target.setPosition(cc.v2(this.node.x,(this.node.y+(i*this.BlockGroupHeight))));
+            target.getComponent('Block_Group_Obj').init(
+                this.BlockGroupMoveSpeen,
+                this,
+                this.BlockPool,
+                this.addBlockMethod(),
+                this.BlockGroupHeight
+            );//初始化方块组
         }
     },
 

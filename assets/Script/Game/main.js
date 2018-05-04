@@ -16,7 +16,6 @@ cc.Class({
         // manager.enabledDebugDraw = true;// 开启debug模式
         // manager.enabledDrawBoundingBox=true;
         this.Fraction.zIndex=99;
-        cc.director.setDisplayStats(false);
     },
 
     start () {
