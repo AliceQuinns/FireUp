@@ -53,7 +53,7 @@ cc.Class({
     // 回收节点
     deletePool:function(type,target){
         //判断是否为数组
-        if(Object.prototype.toString.bind(target)()=="[object Array]"){
+        if(Object.prototype.toString.bind(target)()==="[object Array]"){
             for(let i =0;i<=target.length;i++){
                 this[type].put(target[i]);
             }
@@ -78,11 +78,11 @@ cc.Class({
                 if(this.lifeRange[0]<=0)this.lifeRange[0]=1;//防止出现生命值为0的方块
                 target.life = this.getRandomInt(this.lifeRange[0],this.lifeRange[1]);//生命值
                 // 特殊功能
-                if(this.getRandomInt(0,50)==0){
+                if(this.getRandomInt(0,50)===0){
                     target.special=true;
                 }
                 // 是否可移动
-                if(this.getRandomInt(0,10)==0){
+                if(this.getRandomInt(0,10)===0){
                     target.move=true;
                     //移动距离
                     target.moveDistance=this.getRandomInt(0,this.BlockCreateSize/2);
