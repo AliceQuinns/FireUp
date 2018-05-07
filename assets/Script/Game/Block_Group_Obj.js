@@ -34,7 +34,7 @@ cc.Class({
                 target.setContentSize(self.BlockWidth,self.BlockWidth);
                 target.setPosition(cc.v2((self.limitLeft+self.BlockWidth*i),0));
                 try{
-                    let Block = target.getComponent('Block')
+                    let Block = target.getComponent('Block');
                     Block.init(content,i,this.target);//初始化方块
                     //修改包围盒
                     let Box_collider = Block.getComponent(cc.BoxCollider);

@@ -34,9 +34,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
+      "r": 0,
       "g": 255,
-      "b": 255,
+      "b": 92,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -47,8 +47,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 30,
-      "height": 30
+      "width": 40,
+      "height": 40
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -114,12 +114,12 @@
     "_offset": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 15
+      "y": 20
     },
     "_size": {
       "__type__": "cc.Size",
-      "width": 30,
-      "height": 30
+      "width": 40,
+      "height": 40
     }
   },
   {

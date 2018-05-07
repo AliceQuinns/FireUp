@@ -11,7 +11,7 @@ cc.Class({
         accect: {default:1,tooltip:"游戏加速度"},
         MAX_BlockGroupMoveSpeen:{default:500,tooltip:"方块最大移动速度"},
         MAX_BlockGroupCreate:{default:100,tooltip:"方块最大生产速度"},
-        MAX_BullerCreateSpeed:{default:2,tooltip:"子弹最大生产速度"},
+        MAX_BullerCreateSpeed:{default:3,tooltip:"子弹最大生产速度"},
         MAX_BullerMoveSpeed:{default:2000,tooltip:"子弹最大移动速度"},
         MAX_lifeRange: {default:400,tooltip:"方块最大生命值"},
     },
@@ -19,7 +19,8 @@ cc.Class({
     // 修改方块组移动速度和生产速度
     setSpeen:function(dt){
         let accecthalf = this.accect/2;
-        let life = (this.Block_Group_script.lifeRange = [this.Block_Group_script.lifeRange[0]+=accecthalf*dt,this.Block_Group_script.lifeRange[1]+=accecthalf*dt]),//生命值
+        let min = this.Block_Group_script.lifeRange[0]+=accecthalf*dt;//最小生命值
+        let life = (this.Block_Group_script.lifeRange = [min,min*2]),//生命值
             BlockGroupMoveSpeen = (this.Block_Group_script.BlockGroupMoveSpeen += this.accect*dt),//方块移动速度
             BlockGroupCreate = (this.Block_Group_script.BlockGroupCreate -= accecthalf*dt),//方块生产速度
             BullerCreateSpeed = (this.LeadScript.BullerCreateSpeed -= (this.accect/10)*dt),//子弹生产速度
@@ -56,10 +57,10 @@ cc.Class({
         // 开启碰撞检测系统
         var manager = cc.director.getCollisionManager();
         manager.enabled = true;
-        manager.enabledDebugDraw = true;// 开启debug模式
-        manager.enabledDrawBoundingBox=true;
+        // manager.enabledDebugDraw = true;// 开启debug模式
+        // manager.enabledDrawBoundingBox=true;
         this.Fraction.zIndex=99;
-        // cc.director.setDisplayStats(false);//关闭调试
+        cc.director.setDisplayStats(false);//关闭调试
 
         // 游戏难度曲线
         this.Block_Group_script = this.Block_Group.getComponent(Block_Group);//方块脚本对象
