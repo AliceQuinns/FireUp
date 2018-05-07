@@ -12,30 +12,36 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
+        finger: cc.Node,//手指节点
     },
 
-    // LIFE-CYCLE CALLBACKS:
+    onLoad () {
+        this.fingeranimation();//启动手指动画
+    },
 
-    // onLoad () {},
+    // 事件绑定
+
+    // 开始游戏
+    startGame:function(){
+
+    },
+
+    // 手指图标动画  偏移量为100
+    fingeranimation: function(){
+        let offset = 100;
+        let target = this.finger.children[0];//手指节点
+        let max = (this.finger.width-offset)/2;
+        target.x = -max;//初始化位置
+        let left = cc.moveBy(1,cc.p(this.finger.width-offset,0)).easing(cc.easeIn(1.0));
+        let right =  cc.moveBy(1,cc.p(-(this.finger.width-offset),0)).easing(cc.easeIn(1.0));
+        target.runAction(cc.repeatForever(cc.sequence(left, right)));
+    },
 
     start () {
-
+        cc.director.setDisplayStats(false);
     },
 
-    // update (dt) {},
+    update (dt) {
+
+    },
 });

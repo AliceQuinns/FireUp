@@ -3,6 +3,7 @@ cc.Class({
 
     properties: {
         Blockchildren: [],//当前方块组下的全部方块
+        Box_Collider_botton: 10,//底部包围盒高度
     },
 
     MaxY: 0,// Y轴回收峰值
@@ -28,12 +29,24 @@ cc.Class({
             // 如果有则创建
             if(content){
                 let target = self.PullPool();//创建方块
-                this.Blockchildren.push(target);
+                //this.Blockchildren.push(target);
                 target.parent=self.node;
                 target.setContentSize(self.BlockWidth,self.BlockWidth);
                 target.setPosition(cc.v2((self.limitLeft+self.BlockWidth*i),0));
                 try{
-                    target.getComponent('Block').init(content,i,this.target);//初始化方块
+                    let Block = target.getComponent('Block')
+                    Block.init(content,i,this.target);//初始化方块
+                    //修改包围盒
+                    let Box_collider = Block.getComponent(cc.BoxCollider);
+                    let PolyGonCollider = Block.getComponent(cc.PolygonCollider);
+                    Box_collider.size=cc.size(self.BlockWidth,self.Box_Collider_botton);
+                    Box_collider.offset=cc.v2(self.BlockWidth>>1,self.Box_Collider_botton>>1);
+                    PolyGonCollider.points = [
+                        cc.v2(0,self.Box_Collider_botton),
+                        cc.v2(0,self.BlockWidth),
+                        cc.v2(self.BlockWidth,self.Box_Collider_botton),
+                        cc.v2(self.BlockWidth,self.BlockWidth)
+                    ];
                 }catch(e){
                     console.log(target.getComponent('Block'));
                     console.log('Block对象无法调用init方法');
