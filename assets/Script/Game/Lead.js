@@ -4,8 +4,8 @@ cc.Class({
     properties: {
         parent: cc.Node,// canvas节点
         Bullet: cc.Prefab,// 子弹节点
-        BullerCreateSpeed: 0,//子弹生成速度  帧数
-        BullerMoveSpeed: 0,//子弹移动速度  帧数
+        BullerCreateSpeed: {default:0,tooltip:"子弹生成速度"},
+        BullerMoveSpeed: {default:0,tooltip:"子弹移动速度"},
         BullerConcurrency: 1,//子弹连发数
         defaultNodeSize: 20,//初始化子弹对象池长度
         BulletTime: 0,//用以控制子弹生产时间

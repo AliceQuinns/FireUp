@@ -71,6 +71,11 @@ cc.Class({
         }
     },
 
+    // 方块组生成数量控制
+    BlockGroup:function(){
+
+    },
+
     //随机算法
     getRandomInt: function(min,max){
         return Math.floor(Math.random()*(max-min)+min);
