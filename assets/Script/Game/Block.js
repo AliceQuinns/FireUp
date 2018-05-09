@@ -11,6 +11,7 @@ cc.Class({
         this.life = configure.life;
         this.target=target;
         this.labelNode.getComponent(cc.Label).string = configure.life;//设置生命值
+        this.Aggressivity = target.Aggressivity;//攻击力
         this.setColoe();//修改颜色
     },
 
@@ -41,7 +42,7 @@ cc.Class({
     onCollisionEnter: function(other,self){
         // 与子弹发生碰撞时才剑减少生命值
         if( other.tag === 2 ){
-            this.life -= 1;
+            this.life -= Math.floor(this.Aggressivity);
             this.setLife(self.node);//设置生命值
             this.setColoe();//修改颜色
             this.Score();//修改分数
@@ -50,7 +51,7 @@ cc.Class({
 
     // 修改得分
     Score:function(){
-        this.target.score.getComponent('Score').setScore(1);
+        this.target.setScore(true);//修改分数
     },
 
     onLoad () {

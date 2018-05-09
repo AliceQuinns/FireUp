@@ -111,8 +111,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 23.400000000000006,
-      "height": 55.559999999999995
+      "width": 0,
+      "height": 80
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -139,9 +139,9 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 100,
-    "_fontSize": 100,
-    "_lineHeight": 100,
+    "_actualFontSize": 80,
+    "_fontSize": 80,
+    "_lineHeight": 80,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -160,11 +160,11 @@
       "__id__": 2
     },
     "_enabled": true,
-    "isAlignOnce": true,
+    "isAlignOnce": false,
     "_target": null,
-    "_alignFlags": 45,
-    "_left": 0.38299999999999995,
-    "_right": 0.38299999999999995,
+    "_alignFlags": 42,
+    "_left": 0.5,
+    "_right": 0.5,
     "_top": 0.3148,
     "_bottom": 0.3148,
     "_verticalCenter": 0,
@@ -175,7 +175,7 @@
     "_isAbsBottom": false,
     "_isAbsHorizontalCenter": true,
     "_isAbsVerticalCenter": true,
-    "_originalWidth": 32.22,
+    "_originalWidth": 44.49,
     "_originalHeight": 44.44
   },
   {
@@ -263,8 +263,7 @@
         "a": 255
       }
     ],
-    "life": 0,
-    "Box_Collider_botton": 10
+    "life": 0
   },
   {
     "__type__": "cc.BoxCollider",
@@ -293,7 +292,7 @@
     "node": {
       "__id__": 1
     },
-    "_enabled": true,
+    "_enabled": false,
     "tag": 1,
     "_offset": {
       "__type__": "cc.Vec2",

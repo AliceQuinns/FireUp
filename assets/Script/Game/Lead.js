@@ -71,7 +71,7 @@ cc.Class({
 
         // 点击操作
         start.on(cc.Node.EventType.TOUCH_START,(e)=>{
-            cc.director.loadScene("game");//重新开始
+            cc.director.loadScene("Index");//重新开始
         })
     },
 
@@ -95,19 +95,19 @@ cc.Class({
         if(this.switchBullet){
             // 发生碰撞
             if(other.tag===0){
-                // game over
+                //game over
                 this.switchBullet = false;//关闭子弹生产
                 this.node.opacity = 0;//隐藏节点
                 this.alert();//开启弹框
             }else if(other.tag===1){
-                // 限制移动
-                let maxMove = self.node.convertToWorldSpaceAR(cc.v2(other.node.getPosition()));
-                let targetPos = self.node.convertToWorldSpaceAR(cc.v2(this.node.getPosition()));
-                if(maxMove.x<targetPos.x){
-                    console.log('碰撞体在左边');
-                }else if(maxMove.x>targetPos.x){
-                    console.log('碰撞体在右边');
-                }
+                // // 限制移动
+                // let maxMove = self.node.convertToWorldSpaceAR(cc.v2(other.node.getPosition()));
+                // let targetPos = self.node.convertToWorldSpaceAR(cc.v2(this.node.getPosition()));
+                // if(maxMove.x<targetPos.x){
+                //     console.log('碰撞体在左边');
+                // }else if(maxMove.x>targetPos.x){
+                //     console.log('碰撞体在右边');
+                // }
             }
         }
     },

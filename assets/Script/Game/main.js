@@ -11,7 +11,7 @@ cc.Class({
         accect: {default:1,tooltip:"游戏加速度"},
         MAX_BlockGroupMoveSpeen:{default:500,tooltip:"方块最大移动速度"},
         MAX_BlockGroupCreate:{default:100,tooltip:"方块最大生产速度"},
-        MAX_BullerCreateSpeed:{default:3,tooltip:"子弹最大生产速度"},
+        MAX_BullerCreateSpeed:{default:8,tooltip:"子弹最大生产速度"},
         MAX_BullerMoveSpeed:{default:2000,tooltip:"子弹最大移动速度"},
         MAX_lifeRange: {default:400,tooltip:"方块最大生命值"},
     },
@@ -25,12 +25,6 @@ cc.Class({
             BlockGroupCreate = (this.Block_Group_script.BlockGroupCreate -= accecthalf*dt),//方块生产速度
             BullerCreateSpeed = (this.LeadScript.BullerCreateSpeed -= (this.accect/10)*dt),//子弹生产速度
             BullerMoveSpeed = (this.LeadScript.BullerMoveSpeed += this.accect*dt);//子弹移动速度
-
-        // this.Block_Group_script.BlockGroupMoveSpeen += this.accect*dt;//移动速度
-        // this.Block_Group_script.BlockGroupCreate -= accecthalf*dt;//生产速度
-        // this.Block_Group_script.lifeRange = [life[0]+=accecthalf*dt,life[1]+=accecthalf*dt];//生命值
-        // this.LeadScript.BullerCreateSpeed -= accecthalf*dt;//子弹生产速度
-        // this.LeadScript.BullerMoveSpeed += this.accect*dt;//子弹移动速度
 
         if(BlockGroupMoveSpeen>=this.MAX_BlockGroupMoveSpeen){
             // 方块最大移动速度

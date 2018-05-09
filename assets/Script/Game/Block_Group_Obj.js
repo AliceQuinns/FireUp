@@ -31,22 +31,24 @@ cc.Class({
                 let target = self.PullPool();//创建方块
                 //this.Blockchildren.push(target);
                 target.parent=self.node;
-                target.setContentSize(self.BlockWidth,self.BlockWidth);
+                target.width = self.BlockWidth;
+                target.height = self.BlockWidth;
+                //target.setContentSize(self.BlockWidth,self.BlockWidth);
                 target.setPosition(cc.v2((self.limitLeft+self.BlockWidth*i),0));
                 try{
                     let Block = target.getComponent('Block');
                     Block.init(content,i,this.target);//初始化方块
                     //修改包围盒
                     let Box_collider = Block.getComponent(cc.BoxCollider);
-                    let PolyGonCollider = Block.getComponent(cc.PolygonCollider);
+                    // let PolyGonCollider = Block.getComponent(cc.PolygonCollider);
                     Box_collider.size=cc.size(self.BlockWidth,self.Box_Collider_botton);
                     Box_collider.offset=cc.v2(self.BlockWidth>>1,self.Box_Collider_botton>>1);
-                    PolyGonCollider.points = [
-                        cc.v2(0,self.Box_Collider_botton),
-                        cc.v2(0,self.BlockWidth),
-                        cc.v2(self.BlockWidth,self.Box_Collider_botton),
-                        cc.v2(self.BlockWidth,self.BlockWidth)
-                    ];
+                    // PolyGonCollider.points = [
+                    //     cc.v2(0,self.Box_Collider_botton),
+                    //     cc.v2(0,self.BlockWidth),
+                    //     cc.v2(self.BlockWidth,self.Box_Collider_botton),
+                    //     cc.v2(self.BlockWidth,self.BlockWidth)
+                    // ];
                 }catch(e){
                     console.log(target.getComponent('Block'));
                     console.log('Block对象无法调用init方法');
@@ -74,7 +76,7 @@ cc.Class({
         if(this.target){
             if(this.node.y<=this.MaxY){
                 this.target.deletePool("BlockPool",this.node.children);//回收方块节点
-                this.target.deletePool("BlockGroupPool",this.node);//回收方块组节点
+                this.node.destroy();
             }else{
                 this.node.y-=this.moveSpeen*dt;
             }

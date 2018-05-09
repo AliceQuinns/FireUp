@@ -14,6 +14,8 @@ cc.Class({
         lifeRange: {default:[],type:[cc.Integer],tooltip:"生命值取值范围"},
         BlockGroupHeight:{default: 100,visible:false},//方块组高度
         score: cc.Node,//分数节点
+        scoreSize: {default:1,tooltip:"分数单次增加数量"},
+        Aggressivity:{default:1,tooltip:"子弹攻击力"}
     },
     BlockGroupPool: null,//方块组对象池
     BlockPool:null,//方块对象池
@@ -36,7 +38,7 @@ cc.Class({
 
     // 方块组生成
     createBlockGroupObj: function(BlockGroupSize){
-        this.BlockGroupHeight = this.parents.width/this.BlockCreateSize;//方块组高度和方块高度
+        this.BlockGroupHeight = Math.floor(this.parents.width/this.BlockCreateSize);//方块组高度和方块高度
         for(let i = 0;i<BlockGroupSize;i++){
             let target = null;
             //请求对象池
@@ -47,6 +49,10 @@ cc.Class({
             }
             target.parent = this.parents;
             target.zIndex=98;
+            if(target.childrenCount>0){
+                console.log("对象池未清空");
+                console.log(target);
+            }
             target.setContentSize(this.parents.width,this.BlockGroupHeight);
             target.setPosition(cc.v2(this.node.x,(this.node.y+(i*this.BlockGroupHeight))));
             target.getComponent('Block_Group_Obj').init(
@@ -73,7 +79,31 @@ cc.Class({
 
     // 方块组生成数量控制
     BlockGroup:function(){
+        let Score = this.setScore();
+        // 超过100分时会出现1个以上方块组
+        if(Score>=100){
+            let content = this.getRandomInt(1,5);
+            this.BlockGroupSize = content;
+            this.Aggressivity = Math.floor((Score/100)*content);//修改攻击力
+            console.log('当前攻击力',this.Aggressivity);
+        }
+    },
 
+    //单个方块组子节点数量控制
+    BlockChildSize:function(){
+        // 超过100分 下一次每组生成5个子节点
+        if(this.setScore()>=100){
+            this.BlockCreateSize = this.getRandomInt(4,6);
+        }
+    },
+
+    // sw为true修改分数 false获取分数
+    setScore (sw){
+        if(sw){
+            this.score.getComponent('Score').setScore(this.scoreSize);
+        }else{
+            return Number(this.score.getComponent(cc.Label).string);
+        }
     },
 
     //随机算法
@@ -87,7 +117,7 @@ cc.Class({
         for(let i=0;i<this.BlockCreateSize;i++){
             let target={};// 配置表
             //判断该方块是否生成 10%概率
-            if(this.getRandomInt(0,50)){
+            if(this.getRandomInt(0,5)){
                 if(this.lifeRange[0]<=0)this.lifeRange[0]=1;//防止出现生命值为0的方块
                 target.life = this.getRandomInt(Math.floor(this.lifeRange[0]),Math.floor(this.lifeRange[1]));//生命值
                 // 特殊功能
@@ -115,8 +145,11 @@ cc.Class({
     },
 
     update (dt) {
+        // 方块组生成
         if(this.BlockGroupSwitch){
             if(this.BlockGroupPoolTime>=this.BlockGroupCreate){
+                this.BlockChildSize();//单个方块组子节点数量控制
+                this.BlockGroup();//控制下一次方块组生成数量
                 this.createBlockGroupObj(this.BlockGroupSize);// 生成方块组并控制同时生成的数量
                 this.BlockGroupPoolTime = 0;
             }
