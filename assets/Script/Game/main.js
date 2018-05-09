@@ -15,63 +15,74 @@ cc.Class({
         MAX_BullerMoveSpeed:{default:2000,tooltip:"子弹最大移动速度"},
         MAX_lifeRange: {default:400,tooltip:"方块最大生命值"},
     },
-
-    // 修改方块组移动速度和生产速度
-    setSpeen:function(dt){
-        let accecthalf = this.accect/2;
-        let min = this.Block_Group_script.lifeRange[0]+=accecthalf*dt;//最小生命值
-        let life = (this.Block_Group_script.lifeRange = [min,min*2]),//生命值
-            BlockGroupMoveSpeen = (this.Block_Group_script.BlockGroupMoveSpeen += this.accect*dt),//方块移动速度
-            BlockGroupCreate = (this.Block_Group_script.BlockGroupCreate -= accecthalf*dt),//方块生产速度
-            BullerCreateSpeed = (this.LeadScript.BullerCreateSpeed -= (this.accect/10)*dt),//子弹生产速度
-            BullerMoveSpeed = (this.LeadScript.BullerMoveSpeed += this.accect*dt);//子弹移动速度
-
-        if(BlockGroupMoveSpeen>=this.MAX_BlockGroupMoveSpeen){
-            // 方块最大移动速度
-            this.Block_Group_script.BlockGroupMoveSpeen = this.MAX_BlockGroupMoveSpeen;
-        }
-        if(BlockGroupCreate<=this.MAX_BlockGroupCreate){
-            // 方块最大生产速度
-            this.Block_Group_script.BlockGroupCreate = this.MAX_BlockGroupCreate;
-        }
-        if(BullerCreateSpeed<=this.MAX_BullerCreateSpeed){
-            // 子弹最大生产速度
-            this.LeadScript.BullerCreateSpeed = this.MAX_BullerCreateSpeed;
-        }
-        if(BullerMoveSpeed>=this.MAX_BullerMoveSpeed){
-            // 子弹最大移动速度
-            this.LeadScript.BullerMoveSpeed = this.MAX_BullerMoveSpeed*2;
-        }
-        if(life[1]>=this.MAX_lifeRange){
-            this.Block_Group_script.lifeRange = [this.Block_Group_script.lifeRange[0],this.Block_Group_script.lifeRange[1]];
-        }
-    },
-
+    getRouter: null,//获取配置列表
     onLoad () {
         // 开启碰撞检测系统
         var manager = cc.director.getCollisionManager();
         manager.enabled = true;
-        // manager.enabledDebugDraw = true;// 开启debug模式
-        // manager.enabledDrawBoundingBox=true;
-        this.Fraction.zIndex=99;
+        manager.enabledDebugDraw = true;// 开启debug模式
+        manager.enabledDrawBoundingBox=true;
+        this.Fraction.zIndex=99;// 分数节点
         cc.director.setDisplayStats(false);//关闭调试
+    },
 
-        // 游戏难度曲线
-        this.Block_Group_script = this.Block_Group.getComponent(Block_Group);//方块脚本对象
-        this.LeadScript = this.Lead.getComponent(Lead);//主角脚本对象
-        // this.BlockGroupMoveSpeen = this.Block_Group_script.BlockGroupMoveSpeen;//移动速度
-        // this.BlockGroupCreate = this.Block_Group_script.BlockGroupCreate;//生产速度
-        // this.lifeRange = this.Block_Group_script.lifeRange;//生命值
-        // this.BullerCreateSpeed = this.LeadScript.BullerCreateSpeed;//子弹生产速度
-        // this.BullerMoveSpeed = this.LeadScript.BullerMoveSpeed;//子弹移动速度
+    // 配置表
+    configure:function(){
+        let current=0;//数据与当前读取的元素下标
+        // 读取配置文件
+        cc.loader.loadRes("fireUP",(err,contents)=>{
+            let data = contents.data;
+            console.log(data);
+            // 读取每行方块
+            function getdata(){
+                if(current>=data.length){
+                    console.log('当前配置已读取完毕');
+                    current = 0;//清空重新读取该配置表
+                }
+                let target = [],Record=0;//记录当前方块处于不存在状态的数量,如果5个都不存在则判定为空行
+                for(let i=5;i--;){
+                    let content = data[current];//单个数据
+                    if(!content.c_type||content.c_type==='0'){
+                        Record += 1;
+                    }else{
+                        target.push(content);
+                    }
+                    current += 1;
+                }
+                if(Record>=5){
+                    return {status:false,target:target};//空行
+                }else{
+                    return {status:true,target:target};
+                }
+            }
+            // 获取每阶段配置表
+            function getRouter(){
+                let target = [];
+                let data = getdata();
+                target.push(data.target);
+                // 如果当前行不为空行则继续查找
+                while (!!data.status){
+                    data = getdata();
+                    // 过滤空行
+                    if(data.status){
+                        target.push(data.target);
+                    }
+                }
+                return target;
+            }
+            this.getRouter = getRouter;
+        });
     },
 
     start () {
+        this.configure();// 初始化配置表
+        this.Block_Group_script = this.Block_Group.getComponent(Block_Group);//方块脚本对象
+        this.LeadScript = this.Lead.getComponent(Lead);//主角脚本对象
         this.LeadScript.init(this.node);//初始化主角节点
-        this.Block_Group_script.init(this.node);//初始化方块组
+        this.Block_Group_script.init(this);//初始化方块组
     },
 
     update (dt) {
-        this.setSpeen(dt);//游戏速度
+
     },
 });

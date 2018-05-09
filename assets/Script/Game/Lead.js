@@ -114,10 +114,6 @@ cc.Class({
 
     onLoad () {
         this.node.zIndex=100;
-        // 修改包围盒
-        let Box_collider = this.node.getComponent(cc.BoxCollider);
-        Box_collider.size=cc.size(this.node.width,this.node.height);
-        Box_collider.offset=cc.v2(0,this.node.height>>1);
     },
 
     start () {

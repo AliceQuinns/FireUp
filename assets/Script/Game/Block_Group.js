@@ -5,26 +5,21 @@ cc.Class({
         parents: cc.Node,//canvas节点
         Block: cc.Prefab,//单个方块
         Block_Group: cc.Prefab,//方块容器
-        BlockGroupCreate: {default:240,tooltip:"方块组生成速度 帧数 数值越大生成速度越慢  每多少帧创建一个"},
-        BlockGroupMoveSpeen: {default:100,tooltip:"方块组移动速度 每帧移动距离 "},
-        BlockGroupSize: {default:1,tooltip:"单次生成方块组数量"},
+        BlockGroupCreate: {default:240,tooltip:"方块容器生成速度 反比"},
+        BlockGroupMoveSpeen: {default:100,tooltip:"方块容器移动速度 每帧移动距离 正比"},
         BlockPoolSize: {default:20,tooltip:"初始化方块对象池的数量"},
-        BlockGroupPoolSize: {default:5,tooltip:"初始化方块组对象池的数量"},
-        BlockCreateSize:{default:5,tooltip:"单个方块组对象的方块数量"},
-        lifeRange: {default:[],type:[cc.Integer],tooltip:"生命值取值范围"},
-        BlockGroupHeight:{default: 100,visible:false},//方块组高度
         score: cc.Node,//分数节点
         scoreSize: {default:1,tooltip:"分数单次增加数量"},
         Aggressivity:{default:1,tooltip:"子弹攻击力"}
     },
-    BlockGroupPool: null,//方块组对象池
     BlockPool:null,//方块对象池
+    BlockGroupHeight: 0,//方块高度与宽度
 
     onLoad () {},
 
     init: function(target){
-        this.BlockGroupSwitch = true;//开启
-        this.BlockGroupPoolTime=0;// 控制方块组创建速度
+        this.target = target.node;//入口节点
+        this.target_scene = target;// 入口环境
     },
 
     // 创建节点池
@@ -36,32 +31,28 @@ cc.Class({
         }
     },
 
-    // 方块组生成
-    createBlockGroupObj: function(BlockGroupSize){
-        this.BlockGroupHeight = Math.floor(this.parents.width/this.BlockCreateSize);//方块组高度和方块高度
-        for(let i = 0;i<BlockGroupSize;i++){
-            let target = null;
-            //请求对象池
-            if(this.BlockGroupPool.size()>0){
-                target = this.BlockGroupPool.get();
-            }else{
-                target = cc.instantiate(this.Block_Group);
-            }
-            target.parent = this.parents;
+    // 方块容器生成
+    createBlockGroupObj: function(data){
+        let self = this,Block_Group=this.node.y;//当前方块容器的总高度;
+        if(data.length>=5){
+            console.log('连续方块容器数量超过5排 游戏难度不符合');
+            return;
+        }
+        for(let i = 0;i<data.length;i++){
+            // 计算单个方块的高度和宽度
+            let height =  this.target.width/data[i].length;
+            // 创建方块容器
+            let target = cc.instantiate(this.Block_Group);
+            target.parent = this.target;//添加到世界
             target.zIndex=98;
-            if(target.childrenCount>0){
-                console.log("对象池未清空");
-                console.log(target);
-            }
-            target.setContentSize(this.parents.width,this.BlockGroupHeight);
-            target.setPosition(cc.v2(this.node.x,(this.node.y+(i*this.BlockGroupHeight))));
-            target.getComponent('Block_Group_Obj').init(
-                this.BlockGroupMoveSpeen,
-                this,
-                this.BlockPool,
-                this.addBlockMethod(),
-                this.BlockGroupHeight
-            );//初始化方块组
+            target.setContentSize(this.parents.width,height);//修改方块容器宽高
+            target.setPosition(cc.v2(0,(Block_Group+(i*height))));
+            // 记录总高度
+            Block_Group += height;
+            // 修改方块容器变量
+            this.BlockGroupHeight = height;
+            // 初始化方块容器
+            target.getComponent('Block_Group_Obj').init(self,data[i]);
         }
     },
 
@@ -74,26 +65,6 @@ cc.Class({
             }
         }else{
             this[type].put(target);
-        }
-    },
-
-    // 方块组生成数量控制
-    BlockGroup:function(){
-        let Score = this.setScore();
-        // 超过100分时会出现1个以上方块组
-        if(Score>=100){
-            let content = this.getRandomInt(1,5);
-            this.BlockGroupSize = content;
-            this.Aggressivity = Math.floor((Score/100)*content);//修改攻击力
-            console.log('当前攻击力',this.Aggressivity);
-        }
-    },
-
-    //单个方块组子节点数量控制
-    BlockChildSize:function(){
-        // 超过100分 下一次每组生成5个子节点
-        if(this.setScore()>=100){
-            this.BlockCreateSize = this.getRandomInt(4,6);
         }
     },
 
@@ -111,49 +82,17 @@ cc.Class({
         return Math.floor(Math.random()*(max-min)+min);
     },
 
-    // 单组方块组配置算法 [{生命值,特殊功能,是否移动,移动距离},false]
-    addBlockMethod:function(){
-        let configure = [];//配置表
-        for(let i=0;i<this.BlockCreateSize;i++){
-            let target={};// 配置表
-            //判断该方块是否生成 10%概率
-            if(this.getRandomInt(0,5)){
-                if(this.lifeRange[0]<=0)this.lifeRange[0]=1;//防止出现生命值为0的方块
-                target.life = this.getRandomInt(Math.floor(this.lifeRange[0]),Math.floor(this.lifeRange[1]));//生命值
-                // 特殊功能
-                if(this.getRandomInt(0,50)===0){
-                    target.special=true;
-                }
-                // 是否可移动
-                if(this.getRandomInt(0,10)===0){
-                    target.move=true;
-                    //移动距离
-                    target.moveDistance=this.getRandomInt(0,this.BlockCreateSize/2);
-                }
-            }else{
-                target = false;
-            }
-            configure.push(target);
-        }
-        return configure;
-    },
-
     start () {
+        this.BlockGroupPoolTime=0;// 控制方块组创建变量
         this.createPool(this.Block,'BlockPool',this.BlockPoolSize);//创建方块对象池
-        this.createPool(this.Block_Group,'BlockGroupPool',this.BlockGroupPoolSize);//创建方块组对象池
-        this.createBlockGroupObj(this.BlockGroupSize);// 防止开始游戏时延时过长不创建方块体
     },
 
     update (dt) {
         // 方块组生成
-        if(this.BlockGroupSwitch){
-            if(this.BlockGroupPoolTime>=this.BlockGroupCreate){
-                this.BlockChildSize();//单个方块组子节点数量控制
-                this.BlockGroup();//控制下一次方块组生成数量
-                this.createBlockGroupObj(this.BlockGroupSize);// 生成方块组并控制同时生成的数量
-                this.BlockGroupPoolTime = 0;
-            }
-            this.BlockGroupPoolTime++;
+        if(this.BlockGroupPoolTime>=this.BlockGroupCreate){
+            this.createBlockGroupObj(this.target_scene.getRouter());// 读取配置表并生成方块组
+            this.BlockGroupPoolTime = 0;
         }
+        this.BlockGroupPoolTime++;
     },
 });

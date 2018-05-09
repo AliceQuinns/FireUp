@@ -4,13 +4,13 @@ cc.Class({
     properties: {
         labelNode: cc.Node,//文字节点
         Blockcolor:{default:[],type:cc.Color,tooltip:"方块颜色数组"},
-        life: 0,//方块生命值
+        life: 1,//方块生命值
     },
 
-    init: function(configure,index,target){
-        this.life = configure.life;
-        this.target=target;
-        this.labelNode.getComponent(cc.Label).string = configure.life;//设置生命值
+    init: function(configure,target){
+        this.life = Number(configure.hp);//生命值
+        this.target=target;// Block_group节点
+        this.labelNode.getComponent(cc.Label).string = Number(configure.hp);//设置生命值
         this.Aggressivity = target.Aggressivity;//攻击力
         this.setColoe();//修改颜色
     },
@@ -40,7 +40,7 @@ cc.Class({
 
     // 碰撞回调
     onCollisionEnter: function(other,self){
-        // 与子弹发生碰撞时才剑减少生命值
+        // 与子弹发生碰撞时减少生命值
         if( other.tag === 2 ){
             this.life -= Math.floor(this.Aggressivity);
             this.setLife(self.node);//设置生命值
@@ -58,7 +58,6 @@ cc.Class({
     },
 
     start () {
-
     },
 
     // update (dt) {},
