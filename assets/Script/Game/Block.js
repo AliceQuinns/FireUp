@@ -38,6 +38,23 @@ cc.Class({
         return Math.floor(Math.random()*(max-min)+min);
     },
 
+    // 控制方块移动
+    Block_move:function(left,right,reverse){
+        let sction = cc.repeatForever(
+            cc.sequence(
+                cc.moveTo(2,left),
+                cc.moveTo(2,right)
+            )
+        );
+        sction.setTag(1);//动作tag
+        this.node.runAction(sction);
+    },
+
+    // 对象池回收反注册
+    unuse:function(){
+        this.node.stopActionByTag(1);//清除动作
+    },
+
     // 碰撞回调
     onCollisionEnter: function(other,self){
         // 与子弹发生碰撞时减少生命值

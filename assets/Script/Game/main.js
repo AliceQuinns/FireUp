@@ -40,14 +40,40 @@ cc.Class({
                     current = 0;//清空重新读取该配置表
                 }
                 let target = [],Record=0;//记录当前方块处于不存在状态的数量,如果5个都不存在则判定为空行
-                for(let i=5;i--;){
+                for(let i=0;i<5;i++){
                     let content = data[current];//单个数据
+                    // c_type属性为0表示该节点不存在 hp为0表示该节点不显示 skill为1则表示该节点可以移动
                     if(!content.c_type||content.c_type==='0'){
                         Record += 1;
                     }else{
+                        // 判断当前节点是否可移动
+                        if(content.skill==="1"){
+                            let left_length = 0;//左边可移动距离
+                            let right_length = 0;// 右边可移动距离
+                            let index = current;//当前元素下标
+                            // 计算左边空节点总数
+                           for(let j = i;j--;){
+                               // 检测是否是空格
+                               if(data[index-=1].hp==="0"){
+                                   left_length+=1;
+                               }
+                           }
+                           index += i;//把指针定位到当前移动节点
+                           // 计算右边空节点总数
+                           for(let k=i+1;k<5;k++){
+                               // 检测是否是空格
+                               if(data[index+=1].hp==="0"){
+                                   right_length+=1;
+                               }
+                           }
+                           content.move = true;//是否可移动
+                           content.moveLeft = left_length;//左移距离
+                           content.moveRight =  right_length;// 右移距离
+                           //console.log(`第${current}个元素可移动 他的数据是${JSON.stringify(content)} 左边空位有${left_length} 右边空位有${right_length}`)
+                        }
                         target.push(content);
                     }
-                    current += 1;
+                    current += 1;// 当前元素指针
                 }
                 if(Record>=5){
                     return {status:false,target:target};//空行

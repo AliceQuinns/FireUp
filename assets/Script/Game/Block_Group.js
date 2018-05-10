@@ -22,9 +22,13 @@ cc.Class({
         this.target_scene = target;// 入口环境
     },
 
-    // 创建节点池
-    createPool: function(type,target,size){
-        this[target] = new cc.NodePool();
+    // 创建节点池  可以使用组件节点池
+    createPool: function(type,target,size,nodepool_Type){
+        if(nodepool_Type){
+            this[target] = new cc.NodePool(nodepool_Type);
+        }else{
+            this[target] = new cc.NodePool();
+        }
         for(let i=size;i--;){
             let Node = cc.instantiate(type);
             this[target].put(Node);
@@ -46,7 +50,7 @@ cc.Class({
             target.parent = this.target;//添加到世界
             target.zIndex=98;
             target.setContentSize(this.parents.width,height);//修改方块容器宽高
-            target.setPosition(cc.v2(0,(Block_Group+(i*height))));
+            target.setPosition(cc.v2(0,Block_Group));
             // 记录总高度
             Block_Group += height;
             // 修改方块容器变量
@@ -84,7 +88,7 @@ cc.Class({
 
     start () {
         this.BlockGroupPoolTime=0;// 控制方块组创建变量
-        this.createPool(this.Block,'BlockPool',this.BlockPoolSize);//创建方块对象池
+        this.createPool(this.Block,'BlockPool',this.BlockPoolSize,"Block");//创建方块对象池
     },
 
     update (dt) {

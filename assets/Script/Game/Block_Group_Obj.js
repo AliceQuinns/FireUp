@@ -32,9 +32,17 @@ cc.Class({
                 target.parent=self.node;
                 target.width = self.BlockWidth;
                 target.height = self.BlockWidth;
-                target.setPosition(cc.v2((self.limitLeft+self.BlockWidth*i),0));
+                let target_x = self.limitLeft+self.BlockWidth*i;//当前方块x轴坐标
+                target.setPosition(cc.v2(target_x,0));
+                let Block = target.getComponent('Block');
+                // 判断节点是否可移动
+                if(content.move){
+                    let left_position = cc.p(target_x-(self.BlockWidth*content.moveLeft),0);//左移的终点坐标
+                    let right_position = cc.p(target_x+(self.BlockWidth*(content.moveRight)),0);//右移的终点坐标
+                    Block.Block_move(left_position,right_position);//控制方块移动
+                   // console.log("left",left_position,"right",right_position);
+                }
                 try{
-                    let Block = target.getComponent('Block');
                     Block.init(content,this.target);//初始化方块
                     //修改包围盒
                     let Box_collider = Block.getComponent(cc.BoxCollider);

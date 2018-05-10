@@ -99,15 +99,6 @@ cc.Class({
                 this.switchBullet = false;//关闭子弹生产
                 this.node.opacity = 0;//隐藏节点
                 this.alert();//开启弹框
-            }else if(other.tag===1){
-                // // 限制移动
-                // let maxMove = self.node.convertToWorldSpaceAR(cc.v2(other.node.getPosition()));
-                // let targetPos = self.node.convertToWorldSpaceAR(cc.v2(this.node.getPosition()));
-                // if(maxMove.x<targetPos.x){
-                //     console.log('碰撞体在左边');
-                // }else if(maxMove.x>targetPos.x){
-                //     console.log('碰撞体在右边');
-                // }
             }
         }
     },
