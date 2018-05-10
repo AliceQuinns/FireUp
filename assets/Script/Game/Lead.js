@@ -53,26 +53,9 @@ cc.Class({
 
     // 开启弹框
     alert: function(){
-        // 获取相关节点
-        let bg = this.Alert.children[0];//背景节点
-        let content = this.Alert.children[1];//内容节点
-        let share = content.children[2];// 分享按钮
-        let start = content.children[1];// 开始游戏按钮
-        let fraction = content.children[0];// 游戏分数
-
-        // 初始化节点相关属性
-        this.Alert.zIndex=200;
-        bg.opacity = 100;
-        content.y=0;
-
-        // 执行动画
-        let rotate_360 = cc.rotateBy(1,360).easing(cc.easeIn(2.0));
-        let moveBottom =  cc.moveTo(1, cc.p(0, 0)).easing(cc.easeIn(2.0));
-
-        // 点击操作
-        start.on(cc.Node.EventType.TOUCH_START,(e)=>{
-            cc.director.loadScene("Index");//重新开始
-        })
+        window.setTimeout(()=>{
+            this.Alert.getComponent('Alert').init();//初始化弹框
+        },200);
     },
 
     // 子弹对象池创建

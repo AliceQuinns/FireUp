@@ -75,7 +75,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "aa7f0547-2f60-45f1-be14-ed7d2ad866d4"
+      "__uuid__": "5f65878a-3467-48a2-88b3-2ed09e1fa2ed"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -103,7 +103,7 @@
     "ONstart": false
   },
   {
-    "__type__": "cc.BoxCollider",
+    "__type__": "cc.CircleCollider",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -116,11 +116,7 @@
       "x": 0,
       "y": 20
     },
-    "_size": {
-      "__type__": "cc.Size",
-      "width": 40,
-      "height": 40
-    }
+    "_radius": 20
   },
   {
     "__type__": "cc.PrefabInfo",
