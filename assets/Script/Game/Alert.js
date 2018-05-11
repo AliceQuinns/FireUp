@@ -5,7 +5,9 @@ cc.Class({
         top:cc.Node,
         bottom:cc.Node,
         top_length:{default:0,tooltip:"top组件移动距离"},
-        bottom_length:{default:0,tooltip:"bottom组件移动距离"}
+        bottom_length:{default:0,tooltip:"bottom组件移动距离"},
+        fraction: cc.Node,// 弹框分数节点
+        scorce: cc.Node, // 游戏场景分数节点
     },
 
     init(){
@@ -14,6 +16,9 @@ cc.Class({
 
         // 开启动画
         this.Action_move(true);
+
+        // 修改分数
+        this.fraction.getComponent(cc.Label).string = this.scorce.getComponent(cc.Label).string;
 
         // 开始游戏按钮
         this.click(cc.find("/bottom/start", this.node),()=>{

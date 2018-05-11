@@ -9,26 +9,73 @@ cc.Class({
         Finger: cc.Node,//手
         Backgroup: cc.Node,//背景节点
         Lead: cc.Node,//主角节点
+        Lead_content:cc.Node,//信息面板
+        audio_on:cc.Node,//音频按钮
+        shock:cc.Node,//震动按钮
     },
 
     onLoad () {
         this.Animationmain();//启动动画
+        this.Event_target();//初始化全部事件
     },
 
     // 总动画入口
     Animationmain:function(){
         this.fingeranimation();//启动手指动画
+        this.BottomAnimation();//下移动画
+        this.TopAnimation();//上移动画
+        this.RightAnimation();//右移动画
+        this.LeftAnimation();//左移动画
+        this.ElasticAnimation(this.Lead,1);//主角弹性动画
     },
 
     // 生成动画
     CreateAnimation:function(target,coordinate,time){
-        target.runAction(cc.moveBy(time,coordinate).easing(cc.easeExponentialInOut()));
+        target.runAction(cc.moveBy(time,coordinate).easing(cc.easeBackInOut()));
     },
 
     // 上移动画
     TopAnimation:function(){
-        // 游戏标题
-        this.CreateAnimation(this.title,cc.p(),0.5);
+        this.CreateAnimation(this.Finger,cc.p(0,150),0.5);// 手
+    },
+
+    // 右移动画
+    RightAnimation:function(){
+        this.CreateAnimation(this.ShoppingMall,cc.p(270,0),0.5);// 商城
+        this.CreateAnimation(this.audio_on,cc.p(105,0),0.5);// 音频
+        this.CreateAnimation(this.shock,cc.p(215,0),0.8);// 震动
+    },
+
+    // 左移动画
+    LeftAnimation:function(){
+        this.CreateAnimation(this.upgrade,cc.p(-238,0),0.5);//升级
+        this.CreateAnimation(this.Lead_content,cc.p(-300,0),0.8);//信息面板
+    },
+
+    // 下移动画
+    BottomAnimation:function(){
+        this.CreateAnimation(this.title,cc.p(0,-285),0.2);// 游戏标题
+    },
+
+    // 反向动画
+    reverseAnimation:function(){
+        this.CreateAnimation(this.Finger,cc.p(0,-150),0.5);// 手
+        this.CreateAnimation(this.ShoppingMall,cc.p(-270,0),0.5);// 商城
+        this.CreateAnimation(this.title,cc.p(0,285),0.2);// 游戏标题
+        this.CreateAnimation(this.Lead_content,cc.p(300,0),0.8);// 信息面板
+        this.CreateAnimation(this.upgrade,cc.p(250,0),0.5);// 升级
+        this.CreateAnimation(this.Lead,cc.p(0,1080),1);// 主角移动
+    },
+
+    // 弹性动画
+    ElasticAnimation:function(target,frequency){
+        let jumpAction = cc.sequence(
+            cc.scaleTo(0.1, 0.5, 1.1),
+            cc.scaleTo(0.1, 1, 1),
+            cc.scaleTo(0.1, 1.1, 0.5),
+            cc.scaleTo(0.1, 1, 1),
+        ).repeat(frequency);
+        target.runAction(jumpAction);
     },
 
     // 点击事件
@@ -38,17 +85,35 @@ cc.Class({
         })
     },
 
+    // 开始游戏
+    start_game:function(){
+        cc.director.loadScene("game");
+    },
+
     // 手指图标动画  偏移量为100
     fingeranimation: function(){
-        let offset = 100;
+        let offset = 200;
         let target = this.finger.children[0];//手指节点
         let max = (this.finger.width-offset)/2;
         target.x = -max;//初始化位置
-        let left = cc.moveBy(1,cc.p(this.finger.width-offset,0)).easing(cc.easeExponentialInOut());
-        let right =  cc.moveBy(1,cc.p(-(this.finger.width-offset),0)).easing(cc.easeExponentialInOut());
+        let left = cc.moveBy(1,cc.p(this.finger.width-offset,0)).easing(cc.easeQuadraticActionIn());
+        let right =  cc.moveBy(1,cc.p(-(this.finger.width-offset),0)).easing(cc.easeQuadraticActionIn());
         target.runAction(cc.repeatForever(cc.sequence(left, right)));
     },
 
+    // 全部事件入口
+    Event_target:function(){
+        //主角点击弹动
+        this.click(this.Lead,()=>{this.ElasticAnimation(this.Lead,1)});
+        //点击背景图开始游戏
+        this.click(this.Backgroup,(e)=>{
+            e.stopPropagation();
+            this.reverseAnimation();
+            window.setTimeout(()=>{
+                cc.director.loadScene("game");
+            },1000);
+        });
+    },
 
     start () {
         cc.director.setDisplayStats(false);// 关闭调试面板
