@@ -10,7 +10,8 @@ cc.Class({
         BlockPoolSize: {default:20,tooltip:"初始化方块对象池的数量"},
         score: cc.Node,//分数节点
         scoreSize: {default:1,tooltip:"分数单次增加数量"},
-        Aggressivity:{default:1,tooltip:"子弹攻击力"}
+        Aggressivity:{default:1,tooltip:"子弹攻击力"},
+        particle: cc.Prefab,//爆炸粒子
     },
     BlockPool:null,//方块对象池
     BlockGroupHeight: 0,//方块高度与宽度
@@ -79,6 +80,13 @@ cc.Class({
         }else{
             return Number(this.score.getComponent(cc.Label).string);
         }
+    },
+
+    //创建粒子
+    ctrParticle: function(pos,parent){
+       let target = cc.instantiate(this.particle);
+       target.parent = parent;
+       target.setPosition(pos);
     },
 
     //随机算法

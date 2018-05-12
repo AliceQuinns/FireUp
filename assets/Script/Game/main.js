@@ -28,7 +28,7 @@ cc.Class({
 
     // 配置表
     configure:function(){
-        let current=0;//数据与当前读取的元素下标
+        let current=0,self=this;//数据与当前读取的元素下标
         // 读取配置文件
         cc.loader.loadRes("fireUP",(err,contents)=>{
             let data = contents.data;
@@ -42,6 +42,7 @@ cc.Class({
                 let target = [],Record=0;//记录当前方块处于不存在状态的数量,如果5个都不存在则判定为空行
                 for(let i=0;i<5;i++){
                     let content = data[current];//单个数据
+                    self.Block_life(content);//计算生命值
                     // c_type属性为0表示该节点不存在 hp为0表示该节点不显示 skill为1则表示该节点可以移动
                     if(!content.c_type||content.c_type==='0'){
                         Record += 1;
@@ -54,7 +55,7 @@ cc.Class({
                             // 计算左边空节点总数
                            for(let j = i;j--;){
                                // 检测是否是空格
-                               if(data[index-=1].hp==="0"){
+                               if(data[index-=1].life===0){
                                    left_length+=1;
                                }
                            }
@@ -62,7 +63,7 @@ cc.Class({
                            // 计算右边空节点总数
                            for(let k=i+1;k<5;k++){
                                // 检测是否是空格
-                               if(data[index+=1].hp==="0"){
+                               if(data[index+=1].life===0){
                                    right_length+=1;
                                }
                            }
@@ -98,6 +99,21 @@ cc.Class({
             }
             this.getRouter = getRouter;
         });
+    },
+
+    //随机算法
+    getRandomInt: function(min,max){
+        return Math.floor(Math.random()*(max-min)+min);
+    },
+
+    // 生命值随机取值
+    Block_life:function(target){
+        if(target.hp === "0"|| !target.hp ||String(target.hp).split(",").length<=1){
+            target.life = Number(target.hp);
+        }else{
+            let content = target.hp.split(",").map((val)=>{return Number(val)}).sort();
+            target.life = this.getRandomInt(content[0],content[1]);//生成随机值
+        }
     },
 
     start () {

@@ -27,7 +27,7 @@ cc.Class({
         for(let i=0;i<self.configure.length;i++){
             let content = self.configure[i];
             // 如果有配置且方块的生命值大于0
-            if(content && Number(content.hp) > 0){
+            if(content && content.life > 0){
                 let target = self.PullPool();//创建方块
                 target.parent=self.node;
                 target.width = self.BlockWidth;
@@ -43,13 +43,12 @@ cc.Class({
                    // console.log("left",left_position,"right",right_position);
                 }
                 try{
-                    Block.init(content,this.target);//初始化方块
+                    Block.init(content,this.target,this.node);//初始化方块
                     //修改包围盒
                     let Box_collider = Block.getComponent(cc.BoxCollider);
                     Box_collider.size=cc.size(self.BlockWidth,self.BlockWidth);
                     Box_collider.offset=cc.v2(self.BlockWidth>>1,self.BlockWidth>>1);
                 }catch(e){
-                    console.log(target.getComponent('Block'));
                     console.log('Block对象无法调用init方法');
                 }
             }
@@ -74,7 +73,7 @@ cc.Class({
     update (dt) {
         if(this.target){
             if(this.node.y<=this.MaxY){
-                this.target.deletePool("BlockPool",this.node.children);//回收方块节点
+                this.target.deletePool("BlockPool",this.node.getChildByName("Block"));//回收方块节点
                 this.node.destroy();//删除方块容器
             }else{
                 this.node.y-=this.moveSpeen*dt;

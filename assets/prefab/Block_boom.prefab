@@ -10,7 +10,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Block_c",
+    "_name": "Block_boom",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -19,13 +19,10 @@
     "_components": [
       {
         "__id__": 2
-      },
-      {
-        "__id__": 3
       }
     ],
     "_prefab": {
-      "__id__": 4
+      "__id__": 3
     },
     "_id": "",
     "_opacity": 255,
@@ -73,22 +70,22 @@
     "_enabled": true,
     "_custom": true,
     "_file": {
-      "__uuid__": "a8024634-ac94-4ec1-94a5-6c5495ed69b2"
+      "__uuid__": "34cc2411-82ec-472b-b9ac-6b0182119662"
     },
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 1,
     "playOnLoad": true,
-    "_autoRemoveOnFinish": true,
-    "_totalParticles": 50,
-    "_duration": 2,
-    "_emissionRate": 40,
-    "_life": 1,
-    "_lifeVar": 2,
+    "_autoRemoveOnFinish": false,
+    "_totalParticles": 100,
+    "_duration": 0.5,
+    "_emissionRate": 200,
+    "_life": 5,
+    "_lifeVar": 10,
     "_startColor": {
       "__type__": "cc.Color",
       "r": 255,
-      "g": 255,
-      "b": 255,
+      "g": 0,
+      "b": 0,
       "a": 255
     },
     "_startColorVar": {
@@ -100,27 +97,27 @@
     },
     "_endColor": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 194,
+      "r": 0,
+      "g": 0,
       "b": 0,
       "a": 255
     },
     "_endColorVar": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 235,
+      "r": 0,
+      "g": 0,
       "b": 0,
       "a": 0
     },
-    "_angle": 90,
-    "_angleVar": 360,
-    "_startSize": 10,
-    "_startSizeVar": 20,
-    "_endSize": 40,
-    "_endSizeVar": 50,
-    "_startSpin": 720,
+    "_angle": -90,
+    "_angleVar": 180,
+    "_startSize": 20.1,
+    "_startSizeVar": 6,
+    "_endSize": 0,
+    "_endSizeVar": 0,
+    "_startSpin": -1440,
     "_startSpinVar": 0,
-    "_endSpin": 0,
+    "_endSpin": -1440,
     "_endSpinVar": 0,
     "_sourcePos": {
       "__type__": "cc.Vec2",
@@ -129,21 +126,21 @@
     },
     "_posVar": {
       "__type__": "cc.Vec2",
-      "x": 10,
-      "y": 7
+      "x": 0,
+      "y": 0
     },
-    "_positionType": 2,
+    "_positionType": 0,
     "_emitterMode": 0,
     "_gravity": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -300
+      "y": -1200
     },
-    "_speed": 100,
-    "_speedVar": 500,
+    "_speed": 600,
+    "_speedVar": 5,
     "_tangentialAccel": 0,
     "_tangentialAccelVar": 0,
-    "_radialAccel": 0,
+    "_radialAccel": 55,
     "_radialAccelVar": 0,
     "_rotationIsDir": false,
     "_startRadius": 0,
@@ -155,24 +152,14 @@
     "_N$preview": true
   },
   {
-    "__type__": "1a5f37pR+VKN7unjyIqMf3m",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "time": 1000
-  },
-  {
     "__type__": "cc.PrefabInfo",
     "root": {
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "8c149b00-5eaa-4e73-94b3-c9bdc838c695"
+      "__uuid__": "4bbed606-a9f6-4e54-b04d-caa4e8f2169d"
     },
-    "fileId": "d8setiPgRPKLfPjwUL9ACb",
+    "fileId": "deULxdAwVONYblzD9/h477",
     "sync": false
   }
 ]

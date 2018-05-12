@@ -12,11 +12,16 @@ cc.Class({
         Lead_content:cc.Node,//信息面板
         audio_on:cc.Node,//音频按钮
         shock:cc.Node,//震动按钮
+        audio:{
+            default: null,
+            url: cc.AudioClip
+        }
     },
 
     onLoad () {
         this.Animationmain();//启动动画
         this.Event_target();//初始化全部事件
+        this.AudioCtr(true,'audio');// 播放背景音乐
     },
 
     // 总动画入口
@@ -85,6 +90,11 @@ cc.Class({
         })
     },
 
+    // 事件反注册
+    offClick:(target)=>{
+        target.off(cc.Node.EventType.TOUCH_START);
+    },
+
     // 开始游戏
     start_game:function(){
         cc.director.loadScene("game");
@@ -107,12 +117,22 @@ cc.Class({
         this.click(this.Lead,()=>{this.ElasticAnimation(this.Lead,1)});
         //点击背景图开始游戏
         this.click(this.Backgroup,(e)=>{
-            e.stopPropagation();
-            this.reverseAnimation();
+            e.stopPropagation();// 停止事件冒泡
+            this.reverseAnimation();// 开启反向动画
+            this.offClick(this.Backgroup);//关闭点击事件
             window.setTimeout(()=>{
                 cc.director.loadScene("game");
             },1000);
         });
+    },
+
+    // 音频开关
+    AudioCtr: function(sw,target){
+        if(sw){
+            this[`${target}_ctr`] = cc.audioEngine.play(this[`${target}`], true, 1);
+        }else{
+            cc.audioEngine.stop(this[`${target}_ctr`]);
+        }
     },
 
     start () {

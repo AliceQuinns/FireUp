@@ -47,8 +47,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 40,
-      "height": 40
+      "width": 30,
+      "height": 30
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -114,9 +114,9 @@
     "_offset": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 20
+      "y": 15
     },
-    "_radius": 20
+    "_radius": 15
   },
   {
     "__type__": "cc.PrefabInfo",
