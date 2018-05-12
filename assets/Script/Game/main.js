@@ -14,6 +14,16 @@ cc.Class({
         MAX_BullerCreateSpeed:{default:8,tooltip:"子弹最大生产速度"},
         MAX_BullerMoveSpeed:{default:2000,tooltip:"子弹最大移动速度"},
         MAX_lifeRange: {default:400,tooltip:"方块最大生命值"},
+        Bullet_audio:{
+            default: null,
+            url: cc.AudioClip,
+            tooltip: "子弹发射音效"
+        },
+        Bullet_Hit_audio:{
+            default: null,
+            url: cc.AudioClip,
+            tooltip: "子弹击中音效"
+        },
     },
     getRouter: null,//获取配置列表
     onLoad () {
@@ -26,13 +36,22 @@ cc.Class({
         cc.director.setDisplayStats(false);//关闭调试
     },
 
+    // 音频开关
+    AudioCtr: function(sw,target,loop){
+        if(sw){
+            this[`${target}_ctr`] = cc.audioEngine.play(this[`${target}`], loop, 1);
+        }else{
+            cc.audioEngine.stop(this[`${target}_ctr`]);
+        }
+    },
+
     // 配置表
     configure:function(){
         let current=0,self=this;//数据与当前读取的元素下标
         // 读取配置文件
         cc.loader.loadRes("fireUP",(err,contents)=>{
             let data = contents.data;
-            console.log(data);
+           // console.log(data);
             // 读取每行方块
             function getdata(){
                 if(current>=data.length){
@@ -120,7 +139,7 @@ cc.Class({
         this.configure();// 初始化配置表
         this.Block_Group_script = this.Block_Group.getComponent(Block_Group);//方块脚本对象
         this.LeadScript = this.Lead.getComponent(Lead);//主角脚本对象
-        this.LeadScript.init(this.node);//初始化主角节点
+        this.LeadScript.init(this);//初始化主角节点
         this.Block_Group_script.init(this);//初始化方块组
     },
 

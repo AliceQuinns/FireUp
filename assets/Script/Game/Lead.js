@@ -18,8 +18,9 @@ cc.Class({
     // 初始化
     init: function(target){
         this.maxX = this.parent.width/2-(this.node.width/2);//设置最大移动距离
-        this.touch(target);//初始化触摸事件
+        this.touch(target.node);//初始化触摸事件
         this.initBulletPool();//初始化子弹对象池
+        this.target_main = target;//main 环境
     },
 
     // 拖动事件

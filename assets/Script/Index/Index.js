@@ -120,6 +120,7 @@ cc.Class({
             e.stopPropagation();// 停止事件冒泡
             this.reverseAnimation();// 开启反向动画
             this.offClick(this.Backgroup);//关闭点击事件
+            this.AudioCtr(false,'audio');// 关闭背景音乐
             window.setTimeout(()=>{
                 cc.director.loadScene("game");
             },1000);

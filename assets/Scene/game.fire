@@ -1884,6 +1884,12 @@
     "MAX_BlockGroupCreate": 100,
     "MAX_BullerCreateSpeed": 8,
     "MAX_BullerMoveSpeed": 2000,
-    "MAX_lifeRange": 400
+    "MAX_lifeRange": 400,
+    "Bullet_audio": {
+      "__uuid__": "7793f96b-0fdf-4e97-b0d7-35aca3c77e0d"
+    },
+    "Bullet_Hit_audio": {
+      "__uuid__": "4d0819de-ae91-46cc-9a46-0a06b9d9dd83"
+    }
   }
 ]

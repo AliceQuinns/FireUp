@@ -11,6 +11,7 @@ cc.Class({
         this.BullerMoveSpeed = BullerMoveSpeed;//子弹移动速度
         this.BullerConcurrency = BullerConcurrency;//子弹连发数
         this.Lead = Lead;//Lead节点
+        this.Lead.target_main.AudioCtr(true,'Bullet_Hit_audio',false);
     },
 
     // 销毁节点
