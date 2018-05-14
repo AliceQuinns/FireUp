@@ -20,7 +20,7 @@
   },
   "packageName": "org.cocos2d.helloworld",
   "privateKey": "",
-  "renderMode": "0",
+  "renderMode": "2",
   "startScene": "1eb2a6f8-4610-4acd-9945-d6bd6f238ea4",
   "title": "FireUp",
   "webOrientation": "auto",

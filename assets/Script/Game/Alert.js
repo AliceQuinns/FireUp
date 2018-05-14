@@ -8,6 +8,7 @@ cc.Class({
         bottom_length:{default:0,tooltip:"bottom组件移动距离"},
         fraction: cc.Node,// 弹框分数节点
         scorce: cc.Node, // 游戏场景分数节点
+        shopping: cc.Node,//商城按钮
     },
 
     init(){
@@ -27,6 +28,14 @@ cc.Class({
                 cc.director.loadScene("Index");
             },1000);
         });
+
+        // 商城按钮
+        this.click(this.shopping,()=>{
+            this.Action_move();//开启反向动画
+            window.setTimeout(()=>{
+                cc.director.loadScene("ShoppingMall");
+            },1000);
+        })
     },
 
     // 绑定事件
