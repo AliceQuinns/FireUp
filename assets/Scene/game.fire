@@ -775,7 +775,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 149.02,
+      "width": 80,
       "height": 40
     },
     "_rotationX": 0,
@@ -810,7 +810,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "200.00K",
+    "_N$string": "商城",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -934,7 +934,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 149.02,
+      "width": 120,
       "height": 40
     },
     "_rotationX": 0,
@@ -969,7 +969,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "188.00K",
+    "_N$string": "排行榜",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -1816,7 +1816,7 @@
     "Bullet": {
       "__uuid__": "f7cb3a8a-85e7-4b53-b876-9cbcbed6e1a5"
     },
-    "BullerCreateSpeed": 4.9,
+    "BullerCreateSpeed": 4,
     "BullerMoveSpeed": 800,
     "BullerConcurrency": 1,
     "defaultNodeSize": 20,
@@ -1824,6 +1824,9 @@
     "switchBullet": true,
     "Alert": {
       "__id__": 3
+    },
+    "particle": {
+      "__uuid__": "4bbed606-a9f6-4e54-b04d-caa4e8f2169d"
     }
   },
   {

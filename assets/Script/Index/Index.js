@@ -12,16 +12,23 @@ cc.Class({
         Lead_content:cc.Node,//信息面板
         audio_on:cc.Node,//音频按钮
         shock:cc.Node,//震动按钮
+        Setup:cc.Node,//设置按钮
         audio:{
             default: null,
             url: cc.AudioClip
-        }
+        },
+        audio_sprite: {
+            default: [],
+            type: cc.SpriteFrame
+        },
+        audio_switch: true,//是否默认开启音乐
+        setup_status: true,//是否开启设置面板
     },
 
     onLoad () {
         this.Animationmain();//启动动画
         this.Event_target();//初始化全部事件
-        this.AudioCtr(true,'audio');// 播放背景音乐
+        this.Audio_status();//背景音乐控制
     },
 
     // 总动画入口
@@ -47,8 +54,7 @@ cc.Class({
     // 右移动画
     RightAnimation:function(){
         this.CreateAnimation(this.ShoppingMall,cc.p(270,0),0.5);// 商城
-        this.CreateAnimation(this.audio_on,cc.p(105,0),0.5);// 音频
-        this.CreateAnimation(this.shock,cc.p(215,0),0.8);// 震动
+        this.setup();//设置面板
     },
 
     // 左移动画
@@ -70,6 +76,8 @@ cc.Class({
         this.CreateAnimation(this.Lead_content,cc.p(300,0),0.8);// 信息面板
         this.CreateAnimation(this.upgrade,cc.p(250,0),0.5);// 升级
         this.CreateAnimation(this.Lead,cc.p(0,1080),1);// 主角移动
+        this.CreateAnimation(this.audio_on,cc.p(-220,0),0.5);// 音频
+        this.CreateAnimation(this.shock,cc.p(-410,0),0.8);// 震动
     },
 
     // 弹性动画
@@ -100,6 +108,11 @@ cc.Class({
         cc.director.loadScene("game");
     },
 
+    // 商城界面
+    shopping_Mall:function(){
+        cc.director.loadScene('ShoppingMall');
+    },
+
     // 手指图标动画  偏移量为100
     fingeranimation: function(){
         let offset = 200;
@@ -111,8 +124,50 @@ cc.Class({
         target.runAction(cc.repeatForever(cc.sequence(left, right)));
     },
 
+    // 静音按钮
+    Mute:function(){
+        this.audio_switch = !this.audio_switch;
+        this.Audio_status();
+    },
+
+    // 音乐状态控制
+    Audio_status:function(){
+         if(this.audio_switch){
+             this.audio_on.getComponent(cc.Sprite).spriteFrame=this.audio_sprite[0];
+             this.AudioCtr(true,'audio');// 开启背景音乐
+         }else{
+             this.audio_on.getComponent(cc.Sprite).spriteFrame = this.audio_sprite[1];
+             this.AudioCtr(false,'audio');// 关闭背景音乐
+         }
+    },
+
+    // 设置面板
+    setup: function(){
+        if(this.setup_status){
+            this.CreateAnimation(this.audio_on,cc.p(220,0),0.5);// 音频
+            this.CreateAnimation(this.shock,cc.p(410,0),0.8);// 震动
+        }else{
+            this.CreateAnimation(this.audio_on,cc.p(-220,0),0.5);// 音频
+            this.CreateAnimation(this.shock,cc.p(-410,0),0.8);// 震动
+        }
+    },
+
+    // 设置按钮
+    setup_btn:function(){
+        this.click(this.Setup,()=>{
+            this.setup_status = !this.setup_status;
+            this.setup();
+        });
+    },
+
     // 全部事件入口
     Event_target:function(){
+        // 音乐切换按钮
+        this.click(this.audio_on,()=>{
+            this.Mute();
+        });
+        // 设置按钮
+        this.setup_btn();
         //主角点击弹动
         this.click(this.Lead,()=>{this.ElasticAnimation(this.Lead,1)});
         //点击背景图开始游戏
@@ -122,9 +177,19 @@ cc.Class({
             this.offClick(this.Backgroup);//关闭点击事件
             this.AudioCtr(false,'audio');// 关闭背景音乐
             window.setTimeout(()=>{
-                cc.director.loadScene("game");
+                this.start_game();
             },1000);
         });
+        // 商城
+        this.click(this.ShoppingMall,(e)=>{
+            e.stopPropagation();// 停止事件冒泡
+            this.reverseAnimation();// 开启反向动画
+            this.offClick(this.Backgroup);//关闭点击事件
+            this.AudioCtr(false,'audio');// 关闭背景音乐
+            window.setTimeout(()=>{
+                this.shopping_Mall();
+            },1000);
+        })
     },
 
     // 音频开关

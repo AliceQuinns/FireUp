@@ -396,7 +396,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -305,
+      "x": -420,
       "y": 0
     },
     "_skewX": 0,
@@ -443,7 +443,7 @@
     "isAlignOnce": true,
     "_target": null,
     "_alignFlags": 9,
-    "_left": 20,
+    "_left": -95,
     "_right": 0,
     "_top": 22,
     "_bottom": 0,
@@ -610,7 +610,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -305,
+      "x": -500,
       "y": 0
     },
     "_skewX": 0,
@@ -657,7 +657,7 @@
     "isAlignOnce": true,
     "_target": null,
     "_alignFlags": 9,
-    "_left": 30,
+    "_left": -165,
     "_right": 0,
     "_top": 22.5,
     "_bottom": 0,
@@ -2778,8 +2778,21 @@
     "shock": {
       "__id__": 14
     },
+    "Setup": {
+      "__id__": 11
+    },
     "audio": {
       "__uuid__": "f6727bc5-3ef5-48e5-a0fc-663eb2ab680c"
-    }
+    },
+    "audio_sprite": [
+      {
+        "__uuid__": "a85fd33d-91fb-4553-9294-95a222dd327f"
+      },
+      {
+        "__uuid__": "e606c34b-e8bb-43c4-9853-11f3968d1fff"
+      }
+    ],
+    "audio_switch": true,
+    "setup_status": true
   }
 ]

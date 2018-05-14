@@ -11,6 +11,7 @@ cc.Class({
         BulletTime: 0,//用以控制子弹生产时间
         switchBullet: true,//控制子弹生产开关
         Alert: cc.Node,//弹框
+        particle: {default:null,tooltip:"主角死亡粒子效果",type:cc.Prefab}
     },
     maxX: 0,//最大移动距离
     ObjPool:null, //子弹节点池
@@ -52,6 +53,13 @@ cc.Class({
         }
     },
 
+    //创建粒子
+    ctrParticle: function(pos,parent){
+        let target = cc.instantiate(this.particle);
+        target.parent = parent;
+        target.setPosition(pos);
+    },
+
     // 开启弹框
     alert: function(){
         window.setTimeout(()=>{
@@ -83,6 +91,8 @@ cc.Class({
                 this.switchBullet = false;//关闭子弹生产
                 this.node.opacity = 0;//隐藏节点
                 this.alert();//开启弹框
+                //创建爆炸粒子
+                this.ctrParticle(cc.v2(this.node.x,this.node.y),this.parent);
             }
         }
     },
