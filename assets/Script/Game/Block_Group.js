@@ -13,7 +13,9 @@ cc.Class({
         Aggressivity:{default:1,tooltip:"子弹攻击力"},
         particle: cc.Prefab,//爆炸粒子
     },
-    BlockPool:null,//方块对象池
+    //BlockPool:null,//方块对象池
+    BlockPool4:null,//4级方块对象池
+    BlockPool5:null,//5级方块对象池
     BlockGroupHeight: 0,//方块高度与宽度
 
     onLoad () {},
@@ -24,7 +26,7 @@ cc.Class({
     },
 
     // 创建节点池  可以使用组件节点池
-    createPool: function(type,target,size,nodepool_Type){
+    createPool: function(type,target,size,nodepool_Type,set,leng){
         if(nodepool_Type){
             this[target] = new cc.NodePool(nodepool_Type);
         }else{
@@ -32,6 +34,15 @@ cc.Class({
         }
         for(let i=size;i--;){
             let Node = cc.instantiate(type);
+            if(set){
+                let BlockWidth = this.target.width/leng;
+                Node.width = BlockWidth;
+                Node.height = BlockWidth;
+                //修改包围盒
+                let Box_collider = Node.getComponent(cc.BoxCollider);
+                Box_collider.size=cc.size(BlockWidth,BlockWidth);
+                Box_collider.offset=cc.v2(BlockWidth>>1,BlockWidth>>1);
+            }
             this[target].put(Node);
         }
     },
@@ -69,7 +80,12 @@ cc.Class({
                 this[type].put(target[i]);
             }
         }else{
-            this[type].put(target);
+            if(this[type]){
+                this[type].put(target);
+            }else{
+                console.log("对象找不到");
+                console.log(this[type]);
+            }
         }
     },
 
@@ -96,7 +112,9 @@ cc.Class({
 
     start () {
         this.BlockGroupPoolTime=0;// 控制方块组创建变量
-        this.createPool(this.Block,'BlockPool',this.BlockPoolSize,"Block");//创建方块对象池
+        //this.createPool(this.Block,'BlockPool',this.BlockPoolSize,"Block");//创建方块对象池
+        this.createPool(this.Block,'BlockPool4',this.BlockPoolSize,"Block",true,4);//创建4级方块对象池
+        this.createPool(this.Block,'BlockPool5',this.BlockPoolSize,"Block",true,5);//创建5级方块对象池
     },
 
     update (dt) {

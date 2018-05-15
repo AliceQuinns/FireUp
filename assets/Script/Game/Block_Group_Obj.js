@@ -13,7 +13,8 @@ cc.Class({
     init: function(target,data){
         this.moveSpeen = target.BlockGroupMoveSpeen;// 移动速度
         this.target = target;// 父节点
-        this.BlockPool = target.BlockPool;// 方块对象池
+        this.BlockPool4 = target.BlockPool4;// 4级方块对象池
+        this.BlockPool5 = target.BlockPool5;// 5级方块对象池
         this.configure = data;// 配置表
         this.BlockWidth = target.BlockGroupHeight;// 方块的宽高
         this.limitLeft = -(this.node.width/2);// 方块组最左边坐标
@@ -25,13 +26,11 @@ cc.Class({
     createBlock: function(){
         let self = this;
         for(let i=0;i<self.configure.length;i++){
-            let content = self.configure[i];
+            let content = self.configure[i];// 单个方块配置
             // 如果有配置且方块的生命值大于0
             if(content && content.life > 0){
-                let target = self.PullPool();//创建方块
+                let target = self.PullPool(self.configure.length);//创建方块
                 target.parent=self.node;
-                target.width = self.BlockWidth;
-                target.height = self.BlockWidth;
                 let target_x = self.limitLeft+self.BlockWidth*i;//当前方块x轴坐标
                 target.setPosition(cc.v2(target_x,0));
                 let Block = target.getComponent('Block');
@@ -43,11 +42,13 @@ cc.Class({
                    // console.log("left",left_position,"right",right_position);
                 }
                 try{
-                    Block.init(content,this.target,this.node);//初始化方块
-                    //修改包围盒
-                    let Box_collider = Block.getComponent(cc.BoxCollider);
-                    Box_collider.size=cc.size(self.BlockWidth,self.BlockWidth);
-                    Box_collider.offset=cc.v2(self.BlockWidth>>1,self.BlockWidth>>1);
+                    Block.init(content,this.target,this.node,`BlockPool${self.configure.length}`);//初始化方块
+                    // console.time("test");
+                    // //修改包围盒
+                    // let Box_collider = Block.getComponent(cc.BoxCollider);
+                    // Box_collider.size=cc.size(self.BlockWidth,self.BlockWidth);
+                    // Box_collider.offset=cc.v2(self.BlockWidth>>1,self.BlockWidth>>1);
+                    // console.timeEnd("test");
                 }catch(e){
                     console.log('Block对象无法调用init方法');
                 }
@@ -56,12 +57,20 @@ cc.Class({
     },
 
     // 请求对象
-    PullPool: function(){
-        let target;
-        if(this.BlockPool.size()>0){
-            target = this.BlockPool.get();
+    PullPool: function(len){
+        let target,pool=this.target;
+        let BlockPool = pool[`BlockPool${len}`];//获取节点池
+        if(BlockPool.size()>0){
+            target = BlockPool.get();
         }else{
             target = cc.instantiate(this.target.Block);// new方块对象
+            let BlockWidth = this.target.target.width/len;
+            target.width = BlockWidth;
+            target.height = BlockWidth;
+            //修改包围盒
+            let Box_collider = target.getComponent(cc.BoxCollider);
+            Box_collider.size=cc.size(BlockWidth,BlockWidth);
+            Box_collider.offset=cc.v2(BlockWidth>>1,BlockWidth>>1);
         }
         return target;
     },
@@ -73,7 +82,7 @@ cc.Class({
     update (dt) {
         if(this.target){
             if(this.node.y<=this.MaxY){
-                this.target.deletePool("BlockPool",this.node.getChildByName("Block"));//回收方块节点
+                this.target.deletePool(`BlockPool${this.configure.length}`,this.node.getChildByName("Block"));//回收方块节点
                 this.node.destroy();//删除方块容器
             }else{
                 this.node.y-=this.moveSpeen*dt;

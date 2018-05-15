@@ -7,12 +7,13 @@ cc.Class({
         life: 1,//方块生命值
     },
 
-    init: function(configure,target,parent){
+    init: function(configure,target,parent,pooltype){
         this.life = configure.life;//生命值
         this.target=target;// Block_group节点
         this.labelNode.getComponent(cc.Label).string = configure.life;//设置生命值
         this.Aggressivity = target.Aggressivity;//攻击力
         this.parent_obj = parent;//上级父节点
+        this.pooltype = pooltype;//节点池类型
         this.setColoe();//修改颜色
     },
 
@@ -22,7 +23,7 @@ cc.Class({
             // 执行销毁动作
             if(target){
                 this.target.ctrParticle(cc.v2(this.node.x+this.node.width/2,this.node.y),this.parent_obj);//创建爆炸粒子
-                this.target.deletePool("BlockPool",target);//回收方块节点
+                this.target.deletePool(this.pooltype,target);//回收方块节点
             }
         }else{
             // 递减生命值

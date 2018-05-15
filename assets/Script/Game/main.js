@@ -33,7 +33,7 @@ cc.Class({
         // manager.enabledDebugDraw = true;// 开启debug模式
         // manager.enabledDrawBoundingBox=true;
         this.Fraction.zIndex=99;// 分数节点
-        cc.director.setDisplayStats(false);//关闭调试
+        //cc.director.setDisplayStats(false);//关闭调试
     },
 
     // 音频开关

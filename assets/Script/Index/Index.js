@@ -202,7 +202,7 @@ cc.Class({
     },
 
     start () {
-        cc.director.setDisplayStats(false);// 关闭调试面板
+        //cc.director.setDisplayStats(false);// 关闭调试面板
     },
 
     update (dt) {
