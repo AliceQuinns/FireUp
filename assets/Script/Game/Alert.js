@@ -2,13 +2,14 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        top:cc.Node,
+        top:cc.Node,//分数
         bottom:cc.Node,
         top_length:{default:0,tooltip:"top组件移动距离"},
         bottom_length:{default:0,tooltip:"bottom组件移动距离"},
-        fraction: cc.Node,// 弹框分数节点
         scorce: cc.Node, // 游戏场景分数节点
+        top_canvas: cc.Sprite,// 分数渲染节点
         shopping: cc.Node,//商城按钮
+        shareBtn: cc.Node,//排行榜按钮
     },
 
     init(){
@@ -19,7 +20,10 @@ cc.Class({
         this.Action_move(true);
 
         // 修改分数
-        this.fraction.getComponent(cc.Label).string = this.scorce.getComponent(cc.Label).string;
+        if(window.wx){
+            console.log(String(this.scorce.getComponent(cc.Label).string));
+            this.pushScore(2,String(this.scorce.getComponent(cc.Label).string));
+        }
 
         // 开始游戏按钮
         this.click(cc.find("/bottom/start", this.node),()=>{
@@ -35,7 +39,12 @@ cc.Class({
             window.setTimeout(()=>{
                 cc.director.loadScene("ShoppingMall");
             },1000);
-        })
+        });
+
+        // 排行榜按钮
+        this.click(this.shareBtn,()=>{
+           this.pushScore(3,null);
+        });
     },
 
     // 绑定事件
@@ -56,11 +65,47 @@ cc.Class({
         }
     },
 
+    // 初始化开放域canvas
+    WXopenDataContext:function(){
+        let self = this;
+        if(window.wx){
+            console.log(sharedCanvas);
+            console.log(wx.postMessage);
+            self.wxtexture = new cc.Texture2D();
+            window.setTimeout(()=>{
+                self.pushScore(2,"0");
+            },3000);
+        }
+    },
+
+    // 上传分数
+    pushScore:function(type,score){
+        wx.postMessage({
+            text: type,
+            data: score
+        });
+    },
+
+    wxMain:function(){
+        try {
+            if(sharedCanvas){
+                this.wxtexture.initWithElement(sharedCanvas);
+                this.wxtexture.handleLoadedTexture();
+                this.top_canvas.spriteFrame = new cc.SpriteFrame(this.wxtexture);
+            }
+        }catch (e) {
+
+        }
+    },
+
+
     onLoad () {},
 
     start () {
-
+        this.WXopenDataContext();
     },
 
-    // update (dt) {},
+    update (dt) {
+        this.wxMain();
+    },
 });

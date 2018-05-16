@@ -51,7 +51,7 @@ cc.Class({
         // 读取配置文件
         cc.loader.loadRes("fireUP",(err,contents)=>{
             let data = contents.data;
-           // console.log(data);
+           //console.log(data);
             // 读取每行方块
             function getdata(){
                 if(current>=data.length){
@@ -60,6 +60,7 @@ cc.Class({
                 }
                 let target = [],Record=0;//记录当前方块处于不存在状态的数量,如果5个都不存在则判定为空行
                 for(let i=0;i<5;i++){
+                    //console.log(current);
                     let content = data[current];//单个数据
                     self.Block_life(content);//计算生命值
                     // c_type属性为0表示该节点不存在 hp为0表示该节点不显示 skill为1则表示该节点可以移动
@@ -114,6 +115,7 @@ cc.Class({
                         target.push(data.target);
                     }
                 }
+                //console.log(target);
                 return target;
             }
             this.getRouter = getRouter;
@@ -130,7 +132,7 @@ cc.Class({
         if(target.hp === "0"|| !target.hp ||String(target.hp).split(",").length<=1){
             target.life = Number(target.hp);
         }else{
-            let content = target.hp.split(",").map((val)=>{return Number(val)}).sort();
+            let content = target.hp.replace(/\s/g, "").split(",").map((val)=>{return Number(val)}).sort();
             target.life = this.getRandomInt(content[0],content[1]);//生成随机值
         }
     },

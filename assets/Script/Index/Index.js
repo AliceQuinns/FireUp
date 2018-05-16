@@ -4,7 +4,7 @@ cc.Class({
     properties: {
         finger: cc.Node,//手指节点
         ShoppingMall: cc.Node,//商城
-        upgrade: cc.Node,//升级
+        upgrade: cc.Node,//排行榜
         title: cc.Node,//标题
         Finger: cc.Node,//手
         Backgroup: cc.Node,//背景节点
@@ -13,6 +13,8 @@ cc.Class({
         audio_on:cc.Node,//音频按钮
         shock:cc.Node,//震动按钮
         Setup:cc.Node,//设置按钮
+        upgrade_content:cc.Node,//排行榜节点
+        wxdisplay: cc.Sprite,//微信排行榜
         audio:{
             default: null,
             url: cc.AudioClip
@@ -168,6 +170,8 @@ cc.Class({
         });
         // 设置按钮
         this.setup_btn();
+        // 排行榜
+        this.click(this.upgrade,()=>{this.RankingList()});
         //主角点击弹动
         this.click(this.Lead,()=>{this.ElasticAnimation(this.Lead,1)});
         //点击背景图开始游戏
@@ -201,11 +205,59 @@ cc.Class({
         }
     },
 
+    // 开启排行榜
+    RankingList:function(){
+        if(this.upgrade_content.y>=1000){
+            this.CreateAnimation(this.upgrade_content,cc.p(0,-1200),0.4);
+        }
+        if(wx){
+            this.pushScore(3,null);
+        }
+    },
+
+    // 关闭排行榜
+    closeRankingList:function(){
+        this.CreateAnimation(this.upgrade_content,cc.p(0,1200),0.3);
+    },
+
+    // 微信开放域
+    WeChat:function(){
+        let self = this;
+        if(window.wx){
+            let openDataContext = wx.getOpenDataContext();
+            self.sharedCanvas = openDataContext.canvas;
+            self.sharedCanvas.width = self.upgrade_content.width;
+            self.sharedCanvas.height = self.upgrade_content.height;
+            console.log(self.sharedCanvas);
+            console.log(wx.postMessage);
+            self.wxtexture = new cc.Texture2D();
+            window.setTimeout(()=>{
+                self.pushScore(3,null);
+            },3000);
+        }
+    },
+
+    // 上传分数
+    pushScore:function(type,score){
+        wx.postMessage({
+            text: type,
+            data: score
+        });
+    },
+
+    wxMain:function(){
+        if(this.sharedCanvas){
+            this.wxtexture.initWithElement(this.sharedCanvas);
+            this.wxtexture.handleLoadedTexture();
+            this.wxdisplay.spriteFrame = new cc.SpriteFrame(this.wxtexture);
+        }
+    },
+
     start () {
-        //cc.director.setDisplayStats(false);// 关闭调试面板
+        this.WeChat();
     },
 
     update (dt) {
-
+        this.wxMain();
     },
 });

@@ -29,5 +29,10 @@
     "orientation": "portrait"
   },
   "xxteaKey": "7b2c3ae3-90d9-4d",
-  "zipCompressJs": true
+  "zipCompressJs": true,
+  "qqplay": {
+    "orientation": "portrait",
+    "REMOTE_SERVER_ROOT": ""
+  },
+  "fb-instant-games": {}
 }
