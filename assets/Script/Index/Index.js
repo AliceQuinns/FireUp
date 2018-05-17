@@ -211,7 +211,7 @@ cc.Class({
             this.CreateAnimation(this.upgrade_content,cc.p(0,-1200),0.4);
         }
         if(wx){
-            this.pushScore(3,null);
+            window.pushScore(3,null);
         }
     },
 
@@ -224,30 +224,25 @@ cc.Class({
     WeChat:function(){
         let self = this;
         if(window.wx){
-            let openDataContext = wx.getOpenDataContext();
-            self.sharedCanvas = openDataContext.canvas;
-            self.sharedCanvas.width = self.upgrade_content.width;
-            self.sharedCanvas.height = self.upgrade_content.height;
-            console.log(self.sharedCanvas);
-            console.log(wx.postMessage);
-            self.wxtexture = new cc.Texture2D();
-            window.setTimeout(()=>{
-                self.pushScore(3,null);
-            },3000);
+            // 创建canvas
+            this.wxtexture = new cc.Texture2D();
+            sharedCanvas.width = this.upgrade_content.width;
+            sharedCanvas.height = this.upgrade_content.height;
+            // let pos = cc.director.getNodeToWorldTransformAR();
+            // wx.postMessage({
+            //     type:1,
+            //     data:{
+            //         form_arr:[
+            //             pos.a,pos.b,pos.c,pos.d,pos.tx,pos.ty
+            //         ]
+            //     }
+            // })
         }
     },
 
-    // 上传分数
-    pushScore:function(type,score){
-        wx.postMessage({
-            text: type,
-            data: score
-        });
-    },
-
     wxMain:function(){
-        if(this.sharedCanvas){
-            this.wxtexture.initWithElement(this.sharedCanvas);
+        if(this.wxtexture){
+            this.wxtexture.initWithElement(sharedCanvas);
             this.wxtexture.handleLoadedTexture();
             this.wxdisplay.spriteFrame = new cc.SpriteFrame(this.wxtexture);
         }

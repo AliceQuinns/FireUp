@@ -21,8 +21,7 @@ cc.Class({
 
         // 修改分数
         if(window.wx){
-            console.log(String(this.scorce.getComponent(cc.Label).string));
-            this.pushScore(2,String(this.scorce.getComponent(cc.Label).string));
+            window.pushScore(2,String(this.scorce.getComponent(cc.Label).string));
         }
 
         // 开始游戏按钮
@@ -43,7 +42,7 @@ cc.Class({
 
         // 排行榜按钮
         this.click(this.shareBtn,()=>{
-           this.pushScore(3,null);
+           window.pushScore(3,null);
         });
     },
 
@@ -67,34 +66,19 @@ cc.Class({
 
     // 初始化开放域canvas
     WXopenDataContext:function(){
-        let self = this;
         if(window.wx){
-            console.log(sharedCanvas);
-            console.log(wx.postMessage);
-            self.wxtexture = new cc.Texture2D();
-            window.setTimeout(()=>{
-                self.pushScore(2,"0");
-            },3000);
+            // 创建canvas
+            this.wxtexture = new cc.Texture2D();
+            sharedCanvas.width = this.top.width;
+            sharedCanvas.height = this.top.height;
         }
     },
 
-    // 上传分数
-    pushScore:function(type,score){
-        wx.postMessage({
-            text: type,
-            data: score
-        });
-    },
-
     wxMain:function(){
-        try {
-            if(sharedCanvas){
-                this.wxtexture.initWithElement(sharedCanvas);
-                this.wxtexture.handleLoadedTexture();
-                this.top_canvas.spriteFrame = new cc.SpriteFrame(this.wxtexture);
-            }
-        }catch (e) {
-
+        if(this.wxtexture){
+            this.wxtexture.initWithElement(sharedCanvas);
+            this.wxtexture.handleLoadedTexture();
+            this.top_canvas.spriteFrame = new cc.SpriteFrame(this.wxtexture);
         }
     },
 
