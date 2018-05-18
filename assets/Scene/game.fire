@@ -62,10 +62,10 @@
         "__id__": 22
       },
       {
-        "__id__": 25
+        "__id__": 24
       },
       {
-        "__id__": 28
+        "__id__": 27
       },
       {
         "__id__": 19
@@ -75,10 +75,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 32
+        "__id__": 31
       },
       {
-        "__id__": 33
+        "__id__": 32
       }
     ],
     "_prefab": null,
@@ -246,9 +246,7 @@
       "__id__": 4
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "aa7f0547-2f60-45f1-be14-ed7d2ad866d4"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 0,
     "_fillType": 0,
@@ -486,8 +484,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 160,
-      "height": 100
+      "width": 320,
+      "height": 120
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -496,7 +494,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 6,
-      "y": -124
+      "y": -151.1
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -514,7 +512,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "86648e98-2c93-4c2d-8408-90806523f191"
+      "__uuid__": "f0b8d936-911e-4cc2-81f1-e88f31898b58"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -529,7 +527,9 @@
     "_isTrimmedMode": true,
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_atlas": null
+    "_atlas": {
+      "__uuid__": "f04ae906-19d8-4b1d-a073-d053a4fe5d7a"
+    }
   },
   {
     "__type__": "cc.Node",
@@ -592,7 +592,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "ce4a7bb5-3d98-4ed9-bc19-8abe98adeb33"
+      "__uuid__": "7c2fca6d-05d8-491f-84a2-b59eb17dd253"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -607,7 +607,9 @@
     "_isTrimmedMode": true,
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_atlas": null
+    "_atlas": {
+      "__uuid__": "f04ae906-19d8-4b1d-a073-d053a4fe5d7a"
+    }
   },
   {
     "__type__": "cc.Node",
@@ -670,7 +672,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "cc2f7359-2da3-4504-815f-934853d1c195"
+      "__uuid__": "3d0f3e11-9282-4fac-924a-e96c19fbb13f"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -685,7 +687,9 @@
     "_isTrimmedMode": true,
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_atlas": null
+    "_atlas": {
+      "__uuid__": "f04ae906-19d8-4b1d-a073-d053a4fe5d7a"
+    }
   },
   {
     "__type__": "cc.Widget",
@@ -778,8 +782,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 83,
-      "height": 150
+      "width": 93.75,
+      "height": 93.75
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -788,7 +792,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 475
+      "y": 491
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -806,12 +810,14 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 150,
-    "_fontSize": 150,
-    "_lineHeight": 150,
+    "_actualFontSize": 50,
+    "_fontSize": 50,
+    "_lineHeight": 60,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "5f6d2a06-063a-412d-ac0e-15026e31bfa7"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "0",
     "_N$horizontalAlign": 1,
@@ -842,9 +848,6 @@
     "_components": [
       {
         "__id__": 23
-      },
-      {
-        "__id__": 24
       }
     ],
     "_prefab": null,
@@ -885,32 +888,6 @@
     "groupIndex": 0
   },
   {
-    "__type__": "cc.Sprite",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 22
-    },
-    "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "aa7f0547-2f60-45f1-be14-ed7d2ad866d4"
-    },
-    "_type": 0,
-    "_sizeMode": 0,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_atlas": null
-  },
-  {
     "__type__": "cc.Widget",
     "_name": "",
     "_objFlags": 0,
@@ -948,10 +925,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 26
+        "__id__": 25
       },
       {
-        "__id__": 27
+        "__id__": 26
       }
     ],
     "_prefab": null,
@@ -996,7 +973,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 25
+      "__id__": 24
     },
     "_enabled": true,
     "_spriteFrame": null,
@@ -1020,7 +997,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 25
+      "__id__": 24
     },
     "_enabled": true,
     "parents": {
@@ -1056,13 +1033,13 @@
     "_active": true,
     "_components": [
       {
+        "__id__": 28
+      },
+      {
         "__id__": 29
       },
       {
         "__id__": 30
-      },
-      {
-        "__id__": 31
       }
     ],
     "_prefab": null,
@@ -1107,11 +1084,11 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 28
+      "__id__": 27
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "17298321-ae99-4508-bf4c-c5457eb31a84"
+      "__uuid__": "c45455d5-2d18-443f-ba5d-624d0f62e609"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -1126,14 +1103,16 @@
     "_isTrimmedMode": true,
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_atlas": null
+    "_atlas": {
+      "__uuid__": "f04ae906-19d8-4b1d-a073-d053a4fe5d7a"
+    }
   },
   {
     "__type__": "c7c3b+/Qx9KHbX76uKmDjZq",
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 28
+      "__id__": 27
     },
     "_enabled": true,
     "parent": {
@@ -1160,7 +1139,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 28
+      "__id__": 27
     },
     "_enabled": true,
     "tag": 3,
@@ -1200,10 +1179,10 @@
     },
     "_enabled": true,
     "Lead": {
-      "__id__": 28
+      "__id__": 27
     },
     "Block_Group": {
-      "__id__": 25
+      "__id__": 24
     },
     "Fraction": {
       "__id__": 19

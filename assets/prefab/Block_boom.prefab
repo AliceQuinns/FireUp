@@ -70,36 +70,39 @@
     "_enabled": true,
     "_custom": true,
     "_file": {
-      "__uuid__": "34cc2411-82ec-472b-b9ac-6b0182119662"
+      "__uuid__": "caed0d69-b6ca-4690-a644-ca060dd2efaf"
+    },
+    "_texture": {
+      "__uuid__": "0275e94c-56a7-410f-bd1a-fc7483f7d14a"
     },
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 1,
     "playOnLoad": true,
-    "_autoRemoveOnFinish": false,
-    "_totalParticles": 30,
-    "_duration": 0.1,
-    "_emissionRate": 1000,
-    "_life": 5,
+    "_autoRemoveOnFinish": true,
+    "_totalParticles": 10,
+    "_duration": 1,
+    "_emissionRate": 100,
+    "_life": 1,
     "_lifeVar": 10,
     "_startColor": {
       "__type__": "cc.Color",
       "r": 255,
-      "g": 0,
-      "b": 0,
+      "g": 255,
+      "b": 12,
       "a": 255
     },
     "_startColorVar": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 241,
+      "g": 0,
+      "b": 0,
       "a": 25
     },
     "_endColor": {
       "__type__": "cc.Color",
       "r": 0,
-      "g": 0,
-      "b": 0,
+      "g": 235,
+      "b": 122,
       "a": 255
     },
     "_endColorVar": {
@@ -110,9 +113,9 @@
       "a": 0
     },
     "_angle": -90,
-    "_angleVar": 180,
-    "_startSize": 20.1,
-    "_startSizeVar": 6,
+    "_angleVar": 360,
+    "_startSize": 10,
+    "_startSizeVar": 2,
     "_endSize": 0,
     "_endSizeVar": 0,
     "_startSpin": -1440,

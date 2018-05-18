@@ -95,7 +95,8 @@
       "__id__": 1
     },
     "_enabled": true,
-    "Blockchildren": []
+    "Blockchildren": [],
+    "Box_Collider_botton": 10
   },
   {
     "__type__": "cc.PrefabInfo",
