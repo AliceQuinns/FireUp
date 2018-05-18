@@ -10,16 +10,18 @@ cc.Class({
 
     onLoad () {},
 
-    init: function(target,data){
+    init: function(target,data,BlockGroupHeight){
+        console.time("单个方块组");
         this.moveSpeen = target.BlockGroupMoveSpeen;// 移动速度
         this.target = target;// 父节点
         this.BlockPool4 = target.BlockPool4;// 4级方块对象池
         this.BlockPool5 = target.BlockPool5;// 5级方块对象池
         this.configure = data;// 配置表
-        this.BlockWidth = target.BlockGroupHeight;// 方块的宽高
+        this.BlockWidth = BlockGroupHeight;// 方块的宽高
         this.limitLeft = -(this.node.width/2);// 方块组最左边坐标
         this.MaxY=-(this.target.parents.height/2+this.node.height);//回收最大距离
         this.createBlock(); //生成方块
+        console.timeEnd("单个方块组");
     },
 
     // 方块生成函数
@@ -30,27 +32,20 @@ cc.Class({
             // 如果有配置且方块的生命值大于0
             if(content && content.life > 0){
                 let target = self.PullPool(self.configure.length);//创建方块
-                target.parent=self.node;
+                self.node.addChild(target);
                 let target_x = self.limitLeft+self.BlockWidth*i;//当前方块x轴坐标
                 target.setPosition(cc.v2(target_x,0));
                 let Block = target.getComponent('Block');
+                try{
+                    Block.init(content,this.target,this.node,`BlockPool${self.configure.length}`);//初始化方块
+                }catch(e){
+                    console.log('Block对象无法调用init方法');
+                }
                 // 判断节点是否可移动
                 if(content.move){
                     let left_position = cc.p(target_x-(self.BlockWidth*content.moveLeft),0);//左移的终点坐标
                     let right_position = cc.p(target_x+(self.BlockWidth*(content.moveRight)),0);//右移的终点坐标
                     Block.Block_move(left_position,right_position);//控制方块移动
-                   // console.log("left",left_position,"right",right_position);
-                }
-                try{
-                    Block.init(content,this.target,this.node,`BlockPool${self.configure.length}`);//初始化方块
-                    // console.time("test");
-                    // //修改包围盒
-                    // let Box_collider = Block.getComponent(cc.BoxCollider);
-                    // Box_collider.size=cc.size(self.BlockWidth,self.BlockWidth);
-                    // Box_collider.offset=cc.v2(self.BlockWidth>>1,self.BlockWidth>>1);
-                    // console.timeEnd("test");
-                }catch(e){
-                    console.log('Block对象无法调用init方法');
                 }
             }
         }

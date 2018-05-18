@@ -13,10 +13,8 @@ cc.Class({
         Aggressivity:{default:5,tooltip:"子弹攻击力"},
         particle: cc.Prefab,//爆炸粒子
     },
-    //BlockPool:null,//方块对象池
     BlockPool4:null,//4级方块对象池
     BlockPool5:null,//5级方块对象池
-    BlockGroupHeight: 0,//方块高度与宽度
 
     onLoad () {},
 
@@ -49,27 +47,26 @@ cc.Class({
 
     // 方块容器生成
     createBlockGroupObj: function(data){
-        let self = this,Block_Group=this.node.y;//当前方块容器的总高度;
+        console.time("创建障碍物");
+        let self = this,
+            Block_Group=this.node.y,
+            targetHeight=this.target.width,
+            scene_canvas = this.target;//当前方块容器的总高度;
         if(data.length>=5){
             console.log('连续方块容器数量超过5排 游戏难度不符合');
             return;
         }
         for(let i = 0;i<data.length;i++){
-            // 计算单个方块的高度和宽度
-            let height =  this.target.width/data[i].length;
-            // 创建方块容器
+            let height = targetHeight/data[i].length;// 处理多行方块
             let target = cc.instantiate(this.Block_Group);
-            target.parent = this.target;//添加到世界
-            target.zIndex=98;
-            target.setContentSize(this.parents.width,height);//修改方块容器宽高
+            scene_canvas.addChild(target);//添加到世界
+            target.setContentSize(targetHeight,height);//修改方块容器宽高
             target.setPosition(cc.v2(0,Block_Group));
-            // 记录总高度
-            Block_Group += height;
-            // 修改方块容器变量
-            this.BlockGroupHeight = height;
+            Block_Group += height; // 多行方块时记录总高度
             // 初始化方块容器
-            target.getComponent('Block_Group_Obj').init(self,data[i]);
+            target.getComponent('Block_Group_Obj').init(self,data[i],height);// 父节点 配置表 方块高度
         }
+        console.timeEnd("创建障碍物");
     },
 
     // 回收节点
@@ -112,7 +109,6 @@ cc.Class({
 
     start () {
         this.BlockGroupPoolTime=0;// 控制方块组创建变量
-        //this.createPool(this.Block,'BlockPool',this.BlockPoolSize,"Block");//创建方块对象池
         this.createPool(this.Block,'BlockPool4',this.BlockPoolSize,"Block",true,4);//创建4级方块对象池
         this.createPool(this.Block,'BlockPool5',this.BlockPoolSize,"Block",true,5);//创建5级方块对象池
     },

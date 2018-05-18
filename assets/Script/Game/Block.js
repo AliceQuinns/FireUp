@@ -33,7 +33,7 @@ cc.Class({
 
     // 修改方块颜色
     setColoe:function(){
-        this.node.color = this.Blockcolor[this.getRandomInt(0,5)] || "#00FFEB";//取随机颜色
+        this.node.color = this.Blockcolor[this.getRandomInt(0,5)] || new cc.Color("#00FFEB");//取随机颜色
     },
 
     // 随机数
@@ -42,7 +42,7 @@ cc.Class({
     },
 
     // 控制方块移动
-    Block_move:function(left,right,reverse){
+    Block_move:function(left,right){
         let sction = cc.repeatForever(
             cc.sequence(
                 cc.moveTo(2,left),

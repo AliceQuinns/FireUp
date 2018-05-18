@@ -65,7 +65,7 @@
         "__id__": 24
       },
       {
-        "__id__": 27
+        "__id__": 26
       },
       {
         "__id__": 19
@@ -75,10 +75,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 31
+        "__id__": 30
       },
       {
-        "__id__": 32
+        "__id__": 31
       }
     ],
     "_prefab": null,
@@ -926,9 +926,6 @@
     "_components": [
       {
         "__id__": 25
-      },
-      {
-        "__id__": 26
       }
     ],
     "_prefab": null,
@@ -959,7 +956,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 640
+      "y": 875
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -967,30 +964,6 @@
     "_globalZOrder": 0,
     "_opacityModifyRGB": false,
     "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Sprite",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 24
-    },
-    "_enabled": true,
-    "_spriteFrame": null,
-    "_type": 0,
-    "_sizeMode": 0,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": false,
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_atlas": null
   },
   {
     "__type__": "e5c6574d15DEbtDxNA7qNHO",
@@ -1009,7 +982,7 @@
     "Block_Group": {
       "__uuid__": "00134552-2885-49ed-8289-d28b0c6ed41b"
     },
-    "BlockGroupCreate": 150,
+    "BlockGroupCreate": 100,
     "BlockGroupMoveSpeen": 600,
     "BlockPoolSize": 20,
     "score": {
@@ -1033,13 +1006,13 @@
     "_active": true,
     "_components": [
       {
+        "__id__": 27
+      },
+      {
         "__id__": 28
       },
       {
         "__id__": 29
-      },
-      {
-        "__id__": 30
       }
     ],
     "_prefab": null,
@@ -1084,7 +1057,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 27
+      "__id__": 26
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -1112,7 +1085,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 27
+      "__id__": 26
     },
     "_enabled": true,
     "parent": {
@@ -1135,11 +1108,11 @@
     }
   },
   {
-    "__type__": "cc.BoxCollider",
+    "__type__": "cc.CircleCollider",
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 27
+      "__id__": 26
     },
     "_enabled": true,
     "tag": 3,
@@ -1148,11 +1121,7 @@
       "x": 0,
       "y": 40
     },
-    "_size": {
-      "__type__": "cc.Size",
-      "width": 80,
-      "height": 80
-    }
+    "_radius": 40
   },
   {
     "__type__": "cc.Canvas",
@@ -1179,7 +1148,7 @@
     },
     "_enabled": true,
     "Lead": {
-      "__id__": 27
+      "__id__": 26
     },
     "Block_Group": {
       "__id__": 24

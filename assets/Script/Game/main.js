@@ -115,7 +115,6 @@ cc.Class({
                         target.push(data.target);
                     }
                 }
-                //console.log(target);
                 return target;
             }
             this.getRouter = getRouter;
