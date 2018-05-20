@@ -45,7 +45,7 @@
     "_globalZOrder": 0,
     "_opacityModifyRGB": false,
     "groupIndex": 0,
-    "autoReleaseAssets": false
+    "autoReleaseAssets": null
   },
   {
     "__type__": "cc.Node",
@@ -992,7 +992,9 @@
     "Aggressivity": 5,
     "particle": {
       "__uuid__": "4bbed606-a9f6-4e54-b04d-caa4e8f2169d"
-    }
+    },
+    "BlockBoomSize": 20,
+    "Block_Group_poolSize": 10
   },
   {
     "__type__": "cc.Node",

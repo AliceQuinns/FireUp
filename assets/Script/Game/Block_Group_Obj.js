@@ -11,7 +11,6 @@ cc.Class({
     onLoad () {},
 
     init: function(target,data,BlockGroupHeight){
-        console.time("单个方块组");
         this.moveSpeen = target.BlockGroupMoveSpeen;// 移动速度
         this.target = target;// 父节点
         this.BlockPool4 = target.BlockPool4;// 4级方块对象池
@@ -21,7 +20,6 @@ cc.Class({
         this.limitLeft = -(this.node.width/2);// 方块组最左边坐标
         this.MaxY=-(this.target.parents.height/2+this.node.height);//回收最大距离
         this.createBlock(); //生成方块
-        console.timeEnd("单个方块组");
     },
 
     // 方块生成函数
@@ -77,8 +75,18 @@ cc.Class({
     update (dt) {
         if(this.target){
             if(this.node.y<=this.MaxY){
-                this.target.deletePool(`BlockPool${this.configure.length}`,this.node.getChildByName("Block"));//回收方块节点
-                this.node.destroy();//删除方块容器
+                for(let i=this.node.childrenCount;i--;){
+                    let target = this.node.children[i];
+                    if(target.name === "Block"){
+                        this.target.deletePool(`BlockPool${this.configure.length}`,target);//回收方块节点
+                    }else if(target.name === "Block_boom"){
+                        this.target.deletePool(`BlockBoom`,target);//回收爆炸粒子
+                    }
+                }
+                if(this.node.childrenCount>0){
+                    console.log("子节点未清空");
+                }
+                this.target.deletePool(`Block_Group_pool`,this.node);//回收方块装载容器
             }else{
                 this.node.y-=this.moveSpeen*dt;
             }

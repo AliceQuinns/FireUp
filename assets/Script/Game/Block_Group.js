@@ -12,9 +12,13 @@ cc.Class({
         scoreSize: {default:1,tooltip:"分数单次增加数量"},
         Aggressivity:{default:5,tooltip:"子弹攻击力"},
         particle: cc.Prefab,//爆炸粒子
+        BlockBoomSize:{default:20,tooltip:"初始化爆炸粒子对象池的数量"},
+        Block_Group_poolSize:{default:10,tooltip:"方块装载容器"}
     },
     BlockPool4:null,//4级方块对象池
     BlockPool5:null,//5级方块对象池
+    BlockBoom:null,//爆炸粒子对象池
+    Block_Group_pool:null,//方块装载容器
 
     onLoad () {},
 
@@ -47,7 +51,6 @@ cc.Class({
 
     // 方块容器生成
     createBlockGroupObj: function(data){
-        console.time("创建障碍物");
         let self = this,
             Block_Group=this.node.y,
             targetHeight=this.target.width,
@@ -58,7 +61,7 @@ cc.Class({
         }
         for(let i = 0;i<data.length;i++){
             let height = targetHeight/data[i].length;// 处理多行方块
-            let target = cc.instantiate(this.Block_Group);
+            let target = this.getBlockGroup();// 请求方块装载容器
             scene_canvas.addChild(target);//添加到世界
             target.setContentSize(targetHeight,height);//修改方块容器宽高
             target.setPosition(cc.v2(0,Block_Group));
@@ -66,7 +69,17 @@ cc.Class({
             // 初始化方块容器
             target.getComponent('Block_Group_Obj').init(self,data[i],height);// 父节点 配置表 方块高度
         }
-        console.timeEnd("创建障碍物");
+    },
+
+    // 请求方块装载容器
+    getBlockGroup:function(){
+        let target = null;
+        if(this.Block_Group_pool.size()>0){
+            target = this.Block_Group_pool.get();
+        }else{
+            target = cc.instantiate(this.Block_Group);
+        }
+        return target;
     },
 
     // 回收节点
@@ -95,11 +108,16 @@ cc.Class({
         }
     },
 
-    //创建粒子
+    //请求爆炸粒子
     ctrParticle: function(pos,parent){
-       let target = cc.instantiate(this.particle);
-       target.parent = parent;
-       target.setPosition(pos);
+        let target = null;
+        if(this.BlockBoom.size()>0){
+            target = this.BlockBoom.get();
+        }else{
+            target = cc.instantiate(this.particle);
+        }
+        target.parent = parent;
+        target.setPosition(pos);
     },
 
     //随机算法
@@ -111,6 +129,8 @@ cc.Class({
         this.BlockGroupPoolTime=0;// 控制方块组创建变量
         this.createPool(this.Block,'BlockPool4',this.BlockPoolSize,"Block",true,4);//创建4级方块对象池
         this.createPool(this.Block,'BlockPool5',this.BlockPoolSize,"Block",true,5);//创建5级方块对象池
+        this.createPool(this.particle,'BlockBoom',this.BlockBoomSize);//创建爆炸粒子对象池
+        this.createPool(this.Block_Group,'Block_Group_pool',this.Block_Group_poolSize);//创建方块装载容器
     },
 
     update (dt) {
