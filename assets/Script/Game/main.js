@@ -47,9 +47,14 @@ cc.Class({
 
     // 配置表
     configure:function(){
-        let current=0,self=this;//数据与当前读取的元素下标
+        let current=0,self=this,url = null;//数据与当前读取的元素下标
+        if(!!window.RouterURL){
+            url = window.RouterURL;
+        }else{
+            url = "fireUP";
+        }
         // 读取配置文件
-        cc.loader.loadRes("fireUP",(err,contents)=>{
+        cc.loader.loadRes(url,(err,contents)=>{
             let data = contents.data;
            //console.log(data);
             // 读取每行方块

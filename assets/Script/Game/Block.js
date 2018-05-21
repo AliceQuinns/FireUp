@@ -3,7 +3,11 @@ cc.Class({
 
     properties: {
         labelNode: cc.Node,//文字节点
-        Blockcolor:{default:[],type:cc.Color,tooltip:"方块颜色数组"},
+        BlockSkin_sprite: {
+            default: [],
+            type: cc.SpriteFrame,
+            tooltip:"方块皮肤"
+        },
         life: 1,//方块生命值
     },
 
@@ -31,9 +35,9 @@ cc.Class({
         }
     },
 
-    // 修改方块颜色
+    // 修改方块皮肤
     setColoe:function(){
-        this.node.color = this.Blockcolor[this.getRandomInt(0,5)] || new cc.Color("#00FFEB");//取随机颜色
+        this.node.getComponent(cc.Sprite).spriteFrame = this.BlockSkin_sprite[this.getRandomInt(0,5)] || this.BlockSkin_sprite[0];
     },
 
     // 随机数

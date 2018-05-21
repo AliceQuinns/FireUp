@@ -56,10 +56,10 @@ cc.Class({
     // 移动动画
     Action_move(Reversal){
         if(Reversal){
-            this.top.runAction(cc.moveBy(0.5,0,-(this.top.y-this.top_length)).easing(cc.easeExponentialInOut()));
+            this.top.runAction(cc.moveBy(0.5,0,-1280).easing(cc.easeExponentialInOut()));
             this.bottom.runAction(cc.moveBy(0.8,0,Number(this.bottom_length)).easing(cc.easeExponentialInOut()));
         }else{
-            this.top.runAction(cc.moveBy(0.5,0,880).easing(cc.easeExponentialInOut()));
+            this.top.runAction(cc.moveBy(0.5,0,1280).easing(cc.easeExponentialInOut()));
             this.bottom.runAction(cc.moveBy(0.5,0,Number(-this.bottom_length)).easing(cc.easeExponentialInOut()));
         }
     },
@@ -69,8 +69,6 @@ cc.Class({
         if(window.wx){
             // 创建canvas
             this.wxtexture = new cc.Texture2D();
-            sharedCanvas.width = this.top.width;
-            sharedCanvas.height = this.top.height;
         }
     },
 

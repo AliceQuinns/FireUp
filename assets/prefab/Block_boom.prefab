@@ -72,14 +72,11 @@
     "_file": {
       "__uuid__": "caed0d69-b6ca-4690-a644-ca060dd2efaf"
     },
-    "_texture": {
-      "__uuid__": "0275e94c-56a7-410f-bd1a-fc7483f7d14a"
-    },
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 1,
     "playOnLoad": true,
     "_autoRemoveOnFinish": false,
-    "_totalParticles": 10,
+    "_totalParticles": 50,
     "_duration": -1,
     "_emissionRate": 100,
     "_life": 1,

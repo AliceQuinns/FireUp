@@ -12,6 +12,6 @@
   "quality": 80,
   "contourBleed": false,
   "paddingBleed": false,
-  "filterUnused": false,
+  "filterUnused": true,
   "subMetas": {}
 }

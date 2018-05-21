@@ -38,9 +38,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
+      "r": 255,
       "g": 255,
-      "b": 235,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -108,7 +108,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 56.25,
+      "width": 12.25,
       "height": 56.25
     },
     "_rotationX": 0,
@@ -227,41 +227,21 @@
     "labelNode": {
       "__id__": 2
     },
-    "Blockcolor": [
+    "BlockSkin_sprite": [
       {
-        "__type__": "cc.Color",
-        "r": 255,
-        "g": 0,
-        "b": 0,
-        "a": 255
+        "__uuid__": "24687c98-f855-4b4c-8ea6-e39d57ac8fbc"
       },
       {
-        "__type__": "cc.Color",
-        "r": 163,
-        "g": 255,
-        "b": 0,
-        "a": 255
+        "__uuid__": "98e945af-830f-4ba5-a21d-305a8528e949"
       },
       {
-        "__type__": "cc.Color",
-        "r": 31,
-        "g": 255,
-        "b": 0,
-        "a": 255
+        "__uuid__": "f83a06c6-8dc0-4cb3-b3ce-6359223e5a73"
       },
       {
-        "__type__": "cc.Color",
-        "r": 8,
-        "g": 159,
-        "b": 230,
-        "a": 255
+        "__uuid__": "eb95d802-324b-4587-8a79-c2af865a1975"
       },
       {
-        "__type__": "cc.Color",
-        "r": 255,
-        "g": 204,
-        "b": 0,
-        "a": 255
+        "__uuid__": "ae3c33c3-2477-4bf6-8f7e-c44d53984108"
       }
     ],
     "life": 0

@@ -31,6 +31,13 @@ cc.Class({
         this.Animationmain();//启动动画
         this.Event_target();//初始化全部事件
         this.Audio_status();//背景音乐控制
+
+    },
+
+    // 初始位置
+    startPOS:function(){
+        this.ShoppingMall.x = 0;// 商城
+        this.upgrade.x = 0;//排行榜
     },
 
     // 总动画入口
@@ -55,13 +62,13 @@ cc.Class({
 
     // 右移动画
     RightAnimation:function(){
-        this.CreateAnimation(this.ShoppingMall,cc.p(270,0),0.5);// 商城
+        //this.CreateAnimation(this.ShoppingMall,cc.p(270,0),0.5);// 商城
         this.setup();//设置面板
     },
 
     // 左移动画
     LeftAnimation:function(){
-        this.CreateAnimation(this.upgrade,cc.p(-238,0),0.5);//升级
+        //this.CreateAnimation(this.upgrade,cc.p(-238,0),0.5);//排行榜
         this.CreateAnimation(this.Lead_content,cc.p(-300,0),0.8);//信息面板
     },
 
@@ -208,7 +215,7 @@ cc.Class({
     // 开启排行榜
     RankingList:function(){
         if(this.upgrade_content.y>=1000){
-            this.CreateAnimation(this.upgrade_content,cc.p(0,-1200),0.4);
+            this.CreateAnimation(this.upgrade_content,cc.p(0,-1280),0.4);
         }
         if(wx){
             window.pushScore(3,null);
@@ -217,7 +224,7 @@ cc.Class({
 
     // 关闭排行榜
     closeRankingList:function(){
-        this.CreateAnimation(this.upgrade_content,cc.p(0,1200),0.3);
+        this.CreateAnimation(this.upgrade_content,cc.p(0,1280),0.3);
     },
 
     // 微信开放域
@@ -226,17 +233,6 @@ cc.Class({
         if(window.wx){
             // 创建canvas
             this.wxtexture = new cc.Texture2D();
-            sharedCanvas.width = this.upgrade_content.width;
-            sharedCanvas.height = this.upgrade_content.height;
-            // let pos = cc.director.getNodeToWorldTransformAR();
-            // wx.postMessage({
-            //     type:1,
-            //     data:{
-            //         form_arr:[
-            //             pos.a,pos.b,pos.c,pos.d,pos.tx,pos.ty
-            //         ]
-            //     }
-            // })
         }
     },
 
