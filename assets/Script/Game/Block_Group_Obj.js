@@ -61,8 +61,8 @@ cc.Class({
             target.width = BlockWidth;
             target.height = BlockWidth;
             //修改包围盒
-            let Box_collider = target.getComponent(cc.BoxCollider);
-            Box_collider.size=cc.size(BlockWidth,BlockWidth);
+            let Box_collider = target.getComponent(cc.CircleCollider);
+            Box_collider.radius=BlockWidth/2;
             Box_collider.offset=cc.v2(BlockWidth>>1,BlockWidth>>1);
         }
         return target;

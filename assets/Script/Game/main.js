@@ -30,8 +30,8 @@ cc.Class({
         // 开启碰撞检测系统
         var manager = cc.director.getCollisionManager();
         manager.enabled = true;
-        // manager.enabledDebugDraw = true;// 开启debug模式
-        // manager.enabledDrawBoundingBox=true;
+        manager.enabledDebugDraw = true;// 开启debug模式
+        manager.enabledDrawBoundingBox=true;
         this.Fraction.zIndex=99;// 分数节点
         //cc.director.setDisplayStats(false);//关闭调试
     },
