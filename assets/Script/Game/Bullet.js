@@ -5,13 +5,12 @@ cc.Class({
         ONstart: false,// 子弹移动开关
     },
 
-    init: function(BullerCreateSpeed,BullerMoveSpeed,BullerConcurrency,Lead){
+    init: function(BullerMoveSpeed,BullerConcurrency,Lead){
         this.ONstart = true;//开启子弹运动
-        this.BullerCreateSpeed = BullerCreateSpeed;//子弹生成速度
         this.BullerMoveSpeed = BullerMoveSpeed;//子弹移动速度
         this.BullerConcurrency = BullerConcurrency;//子弹连发数
         this.Lead = Lead;//Lead节点
-        this.Lead.target_main.AudioCtr(true,'Bullet_Hit_audio',false);
+        //this.Lead.target_main.AudioCtr(true,'Bullet_Hit_audio',false);
     },
 
     // 销毁节点

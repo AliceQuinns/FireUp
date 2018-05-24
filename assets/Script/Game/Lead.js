@@ -4,12 +4,11 @@ cc.Class({
     properties: {
         parent: cc.Node,// canvas节点
         Bullet: cc.Prefab,// 子弹节点
-        BullerCreateSpeed: {default:0,tooltip:"子弹生成速度"},
+        // BullerCreateSpeed: {default:0,tooltip:"子弹生成速度"},
         BullerMoveSpeed: {default:0,tooltip:"子弹移动速度"},
         BullerConcurrency: 1,//子弹连发数
         defaultNodeSize: 20,//初始化子弹对象池长度
         BulletTime: 0,//用以控制子弹生产时间
-        switchBullet: true,//控制子弹生产开关
         Alert: cc.Node,//弹框
         particle: {default:null,tooltip:"主角死亡粒子效果",type:cc.Prefab}
     },
@@ -18,10 +17,13 @@ cc.Class({
 
     // 初始化
     init: function(target){
+        this.target_main = target;// main环境
+        this.switchBullet = true;
         this.maxX = this.parent.width/2-(this.node.width/2);//设置最大移动距离
         this.touch(target.node);//初始化触摸事件
         this.initBulletPool();//初始化子弹对象池
         this.target_main = target;//main 环境
+        this.createTimeBullet();//开始创建子弹
     },
 
     // 拖动事件
@@ -39,7 +41,6 @@ cc.Class({
 
     // 创建子弹
     createBullet: function(){
-        if(this.ObjPool){
             let target = null;
             if(this.ObjPool.size()>0){
                 target = this.ObjPool.get();
@@ -49,8 +50,7 @@ cc.Class({
             target.parent = this.parent;
             target.zIndex=99;
             target.setPosition(cc.v2(this.node.x,this.node.y));
-            target.getComponent('Bullet').init(this.BullerCreateSpeed,this.BullerMoveSpeed,this.BullerConcurrency,this);
-        }
+            target.getComponent('Bullet').init(this.BullerMoveSpeed,this.BullerConcurrency,this);
     },
 
     //创建粒子
@@ -63,7 +63,7 @@ cc.Class({
     // 开启弹框
     alert: function(){
         window.setTimeout(()=>{
-            this.Alert.getComponent('Alert').init();//初始化弹框
+            this.Alert.getComponent('Alert').init(this.target_main);//初始化弹框
         },200);
     },
 
@@ -92,7 +92,7 @@ cc.Class({
                 this.node.opacity = 0;//隐藏节点
                 this.alert();//开启弹框
                 //创建爆炸粒子
-                this.ctrParticle(cc.v2(this.node.x,this.node.y),this.parent);
+                //this.ctrParticle(cc.v2(this.node.x,this.node.y),this.parent);
             }
         }
     },
@@ -105,14 +105,16 @@ cc.Class({
 
     },
 
-    update (dt) {
-        if(this.switchBullet){
-            if(this.BulletTime>=this.BullerCreateSpeed){
-                this.BulletTime = 0;
+    // 生产子弹
+    createTimeBullet(){
+        this.schedule(function () {
+            if(this.switchBullet){
                 this.createBullet();// 创建子弹
             }
-            this.BulletTime++;
-        }
+        }.bind(this), 0.1);
+    },
+
+    update (dt) {
     },
 });
 

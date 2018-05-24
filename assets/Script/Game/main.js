@@ -14,15 +14,15 @@ cc.Class({
         MAX_BullerCreateSpeed:{default:8,tooltip:"子弹最大生产速度"},
         MAX_BullerMoveSpeed:{default:2000,tooltip:"子弹最大移动速度"},
         MAX_lifeRange: {default:400,tooltip:"方块最大生命值"},
-        Bullet_audio:{
-            default: null,
-            url: cc.AudioClip,
-            tooltip: "子弹发射音效"
-        },
         Bullet_Hit_audio:{
             default: null,
             url: cc.AudioClip,
             tooltip: "子弹击中音效"
+        },
+        audio:{
+            default: null,
+            url: cc.AudioClip,
+            tooltip: "背景音乐"
         },
     },
     getRouter: null,//获取配置列表
@@ -30,10 +30,11 @@ cc.Class({
         // 开启碰撞检测系统
         var manager = cc.director.getCollisionManager();
         manager.enabled = true;
-        manager.enabledDebugDraw = true;// 开启debug模式
-        manager.enabledDrawBoundingBox=true;
+        // manager.enabledDebugDraw = true;// 开启debug模式
+        // manager.enabledDrawBoundingBox=true;
         this.Fraction.zIndex=99;// 分数节点
         //cc.director.setDisplayStats(false);//关闭调试
+        this.AudioCtr(true,"audio",true);
     },
 
     // 音频开关
@@ -109,6 +110,7 @@ cc.Class({
             }
             // 获取每阶段配置表
             function getRouter(){
+                //console.time("读配置文件");
                 let target = [];
                 let data = getdata();
                 target.push(data.target);
@@ -120,6 +122,7 @@ cc.Class({
                         target.push(data.target);
                     }
                 }
+                //console.timeEnd("读配置文件");
                 return target;
             }
             this.getRouter = getRouter;

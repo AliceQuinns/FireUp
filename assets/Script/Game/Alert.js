@@ -12,7 +12,9 @@ cc.Class({
         shareBtn: cc.Node,//排行榜按钮
     },
 
-    init(){
+    init(target){
+        target.AudioCtr(false,'audio',false);// 关闭背景音乐
+
         // 提高页面层级
         this.node.zIndex = 200;
 

@@ -11,7 +11,6 @@ cc.Class({
         Lead: cc.Node,//主角节点
         Lead_content:cc.Node,//信息面板
         audio_on:cc.Node,//音频按钮
-        shock:cc.Node,//震动按钮
         Setup:cc.Node,//设置按钮
         upgrade_content:cc.Node,//排行榜节点
         wxdisplay: cc.Sprite,//微信排行榜
@@ -30,8 +29,7 @@ cc.Class({
     onLoad () {
         this.Animationmain();//启动动画
         this.Event_target();//初始化全部事件
-        this.Audio_status();//背景音乐控制
-
+        //this.Audio_status();//背景音乐控制
     },
 
     // 初始位置
@@ -86,7 +84,7 @@ cc.Class({
         this.CreateAnimation(this.upgrade,cc.p(250,0),0.5);// 升级
         this.CreateAnimation(this.Lead,cc.p(0,1080),1);// 主角移动
         this.CreateAnimation(this.audio_on,cc.p(-220,0),0.5);// 音频
-        this.CreateAnimation(this.shock,cc.p(-410,0),0.8);// 震动
+        // this.CreateAnimation(this.shock,cc.p(-410,0),0.8);// 震动
     },
 
     // 弹性动画
@@ -114,7 +112,9 @@ cc.Class({
 
     // 开始游戏
     start_game:function(){
-        cc.director.loadScene("game");
+        this.node.runAction(cc.fadeOut(1.0));
+        this.AudioCtr(false,'audio');// 关闭背景音乐
+        setTimeout(()=>{cc.director.loadScene("game")},1000);
     },
 
     // 商城界面
@@ -154,10 +154,10 @@ cc.Class({
     setup: function(){
         if(this.setup_status){
             this.CreateAnimation(this.audio_on,cc.p(220,0),0.5);// 音频
-            this.CreateAnimation(this.shock,cc.p(410,0),0.8);// 震动
+            //this.CreateAnimation(this.shock,cc.p(410,0),0.8);// 震动
         }else{
             this.CreateAnimation(this.audio_on,cc.p(-220,0),0.5);// 音频
-            this.CreateAnimation(this.shock,cc.p(-410,0),0.8);// 震动
+            //this.CreateAnimation(this.shock,cc.p(-410,0),0.8);// 震动
         }
     },
 
@@ -246,6 +246,9 @@ cc.Class({
 
     start () {
         this.WeChat();
+        cc.director.preloadScene("game", function () {
+            cc.log("预加载");
+        });
     },
 
     update (dt) {
