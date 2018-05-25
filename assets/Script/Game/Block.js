@@ -13,11 +13,13 @@ cc.Class({
 
     init: function(configure,target,pooltype){
         this.life = configure.life;//生命值
-        this.moveSpeen = target.BlockGroupMoveSpeen;//方块移动速度
+        let movespeen = window.FireUp.BlockGroupMoveSpeen;//获取方块移动速度
+        this.moveSpeen = (!!movespeen)?movespeen:target.BlockGroupMoveSpeen;//方块移动速度
         this.target=target;// Block_group节点
         this.MaxY=-(target.parents.height/2+this.node.height);//回收最大距离
         this.labelNode.getComponent(cc.Label).string = configure.life;//设置生命值
-        this.Aggressivity = target.Aggressivity;//攻击力
+        let aggressivity = window.FireUp.Aggressivity = 1;//全局攻击力
+        this.Aggressivity = (!!aggressivity)?aggressivity:target.Aggressivity;//自定攻击力
         this.pooltype = pooltype;// 当前节点所属节点池
         this.open = true;// 开启运动
         this.setColoe();//修改颜色

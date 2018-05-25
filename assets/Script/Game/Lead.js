@@ -49,6 +49,7 @@ cc.Class({
             }
             target.parent = this.parent;
             target.zIndex=99;
+            target.color = window.FireUp.BulletColor;
             target.setPosition(cc.v2(this.node.x,this.node.y));
             target.getComponent('Bullet').init(this.BullerMoveSpeed,this.BullerConcurrency,this);
     },

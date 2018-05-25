@@ -28,7 +28,8 @@ cc.Class({
         this.Block_4 = this.parents.width/4;// 4方块宽度
         this.Block_5 = this.parents.width/5;// 5方块宽度
         this.limitLeft = -(this.parents.width/2);// 方块最左边坐标
-        this.createTimeBlock();//开始生产方块
+        //this.createTimeBlock();//开始生产方块
+        this.BlockGroupPoolTime = 0;
     },
 
     // 创建节点池  可以使用组件节点池
@@ -72,7 +73,7 @@ cc.Class({
     // 单排方块生成函数 y 是当前方块的Y轴坐标
     createBlock: function(Y,configure){
         let self = this,Block_type = configure.length;
-        for(let i=0;i<configure.length;i++){
+        for(let i=0;i<Block_type;i++){
             let content = configure[i];// 单个方块配置信息
             // 如果有配置信息且方块的生命值大于0则生成方块
             if(content && content.life > 0){
@@ -166,10 +167,17 @@ cc.Class({
         // this.createPool(this.Block_Group,'Block_Group_pool',this.Block_Group_poolSize);//创建方块装载容器
     },
 
-    // 生产方块
-    createTimeBlock(){
-        this.schedule(function () {
+    // // 生产方块
+    // createTimeBlock(){
+    //     this.schedule(function () {
+    //     }.bind(this), window.FireUp.BloceCreateSpeed);
+    // },
+
+    update:function(dt){
+        if(this.BlockGroupPoolTime >= window.FireUp.BloceCreateSpeed){
             this.createBlockGroupObj(this.target_scene.getRouter());// 读取配置表并生成方块组
-        }.bind(this), 1);
-    },
+            this.BlockGroupPoolTime = 0;
+        }
+        this.BlockGroupPoolTime++;
+    }
 });

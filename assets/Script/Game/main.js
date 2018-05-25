@@ -35,6 +35,11 @@ cc.Class({
         this.Fraction.zIndex=99;// 分数节点
         //cc.director.setDisplayStats(false);//关闭调试
         this.AudioCtr(true,"audio",true);
+        window.FireUp = {};//游戏全局配置变量
+        window.FireUp.BlockGroupMoveSpeen = 500;// 方块移动速度
+        window.FireUp.BloceCreateSpeed = 120;// 方块生成速度
+        window.FireUp.BulletColor = new cc.color(255,255,255,255);//子弹颜色
+        window.FireUp.Aggressivity = 3;//子弹攻击力
     },
 
     // 音频开关
