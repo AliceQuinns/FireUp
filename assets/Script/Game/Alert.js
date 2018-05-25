@@ -71,6 +71,8 @@ cc.Class({
         if(window.wx){
             // 创建canvas
             this.wxtexture = new cc.Texture2D();
+            sharedCanvas.width = 720;
+            sharedCanvas.height = 1280;
         }
     },
 

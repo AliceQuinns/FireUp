@@ -180,9 +180,9 @@ cc.Class({
         // 排行榜
         this.click(this.upgrade,()=>{this.RankingList()});
         //主角点击弹动
-        this.click(this.Lead,()=>{this.ElasticAnimation(this.Lead,1)});
+        //this.click(this.Lead,()=>{this.ElasticAnimation(this.Lead,1)});
         //点击背景图开始游戏
-        this.click(this.Backgroup,(e)=>{
+        this.click(this.Lead,(e)=>{
             e.stopPropagation();// 停止事件冒泡
             this.reverseAnimation();// 开启反向动画
             this.offClick(this.Backgroup);//关闭点击事件
@@ -233,6 +233,8 @@ cc.Class({
         if(window.wx){
             // 创建canvas
             this.wxtexture = new cc.Texture2D();
+            sharedCanvas.width = 720;
+            sharedCanvas.height = 1280;
         }
     },
 
